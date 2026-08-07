@@ -1,0 +1,23 @@
+# İşletim sistemi çöpü
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editör
+.vscode/
+.idea/
+*.swp
+
+# Bağımlılık / build (ileride gerekirse)
+node_modules/
+dist/
+.cache/
+
+# Ortam değişkenleri — ASLA commit edilmez
+.env
+.env.*
+!.env.example
+
+# Log
+*.log
+npm-debug.log*

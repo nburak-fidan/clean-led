@@ -1,247 +1,286 @@
-/* ================================================
-   MAIN.CSS — Entry point: imports all CSS modules
-   ================================================ */
+/* ============================================================
+   MAIN.CSS — Sayfaya özel yerleşim
+   Buradaki kurallar SADECE bu sayfada geçerlidir.
+   Tekrar kullanılacak bir şey buraya YAZILMAZ → components.css.
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+   NOT: @import kullanılmıyor. @import zinciri tarayıcıyı SIRAYLA
+   indirmeye zorlar; dosyalar index.html'de <link> ile paralel geliyor.
+   ============================================================ */
 
-@import url('./base.css');
-@import url('./components.css');
-@import url('./animations.css');
+/* ============================================================
+   HERO — "El feneri" etkileşimi
 
-/* ================================================
-   PAGE-SPECIFIC LAYOUT OVERRIDES
-   These are layout styles unique to the landing page
-   that don't belong in reusable components.
-   ================================================ */
+   FİKİR: Ürünün tek satırlık vaadi "karanlıkta göremediğini görürsün".
+   Jenerik bir hero (rozet + başlık + iki buton) bunu ANLATIR.
+   Bunun yerine kullanıcıya YAŞATIYORUZ: sayfa karanlık başlıyor,
+   imleç bir LED huzmesi gibi arkadaki dokuyu aydınlatıyor.
 
-/* ---- Hero Section ---- */
+   Bu, "yapay zeka yapmış gibi durmasın" isteğinin teknik karşılığı:
+   özgünlük süslemeden değil, ürünün kendi mantığından gelir.
+
+   BOZULMA DURUMLARI (önce bunlar düşünüldü):
+   - JS çalışmazsa       → huzme varsayılan konumda sabit kalır, sayfa okunur
+   - Dokunmatik cihazda  → imleç yok, huzme kendi kendine süzülür
+   - reduced-motion açık → süzülme durur, sabit aydınlık
+   ============================================================ */
+
+/* @property olmadan CSS değişkenleri animasyonlanamaz (birden zıplar).
+   Tipini bildirince tarayıcı ara değerleri hesaplayabilir.
+   Desteklemeyen tarayıcıda animasyon olmaz, düzen bozulmaz. */
+@property --torch-x { syntax: '<percentage>'; inherits: true; initial-value: 68%; }
+@property --torch-y { syntax: '<percentage>'; inherits: true; initial-value: 42%; }
+
 .hero {
-  min-height: 100vh;
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding-top: 8rem; /* topbar (2.5rem) + nav (5rem) + buffer */
+  /* 100vh DEĞİL 100svh: mobilde adres çubuğu açıkken 100vh ekrandan
+     TAŞAR — eski sitede hero'nun mobilde kaymasının sebebi buydu. */
+  min-height: calc(100svh - var(--nav-h) - var(--topbar-h));
+  padding-block: var(--space-2xl) var(--space-3xl);
+  overflow: hidden;
+  isolation: isolate;
 }
 
-.hero__content {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-2xl);
-  align-items: center;
+/* Mobilde ekranın altını sabit CTA barı kaplıyor.
+   Hero yüksekliğinden düşülmezse son satır (istatistikler)
+   barın ARKASINDA kalıyor — testte 703px vs 679px olarak ölçüldü. */
+@media (max-width: 767px) {
+  .hero {
+    min-height: calc(100svh - var(--nav-h) - var(--topbar-h) - var(--mobile-cta-h));
+    /* Dikey boşluklar mobilde kısılır. 360x740 bir telefonda
+       nav (96px) ve CTA barı (68px) düşünce geriye 576px kalıyor;
+       masaüstü boşluklarıyla içerik 655px oluyordu ve son satır
+       barın arkasına giriyordu. */
+    padding-block: var(--space-lg);
+  }
+  .hero__stats {
+    margin-top: var(--space-md);
+    padding-top: var(--space-sm);
+    gap: var(--space-sm);
+  }
+  .hero__actions { margin-top: var(--space-md); }
+  .hero__lead { margin-top: var(--space-sm); }
+}
+
+/* ---- Katman 1: aydınlatılacak doku ----
+   Logodaki huzme çizgileri + teknik ızgara.
+   Gerçek fotoğraf eklenince arkasına girer:
+     <div class="hero__stage" style="--hero-image:url('./assets/images/hero.webp')">
+   Görsel yoksa da dolu görünür — boş kutu bırakmıyoruz. */
+.hero__stage {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: var(--hero-image, none);
+  background-size: cover;
+  background-position: center right;
+  pointer-events: none;
+}
+
+.hero__stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    /* logodan alıntı: eğik ışık çizgileri */
+    repeating-linear-gradient(114deg,
+      transparent 0 34px,
+      rgba(46, 155, 255, .16) 34px 35px,
+      transparent 35px 96px),
+    /* teknik ızgara */
+    linear-gradient(to right,  rgba(120, 170, 255, .07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(120, 170, 255, .07) 1px, transparent 1px);
+  background-size: auto, 52px 52px, 52px 52px;
+}
+
+/* ---- Katman 2: huzme ----
+   Işık dairesinin DIŞINI karartır, içini açar.
+   Ayrıca merkeze hafif mavi ışıma koyar → "LED yanıyor" hissi. */
+.hero__torch {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle 190px at var(--torch-x) var(--torch-y),
+      rgba(46, 155, 255, .16), transparent 72%),
+    radial-gradient(circle 300px at var(--torch-x) var(--torch-y),
+      transparent 0%,
+      color-mix(in srgb, var(--bg) 72%, transparent) 46%,
+      color-mix(in srgb, var(--bg) 97%, transparent) 100%);
+  /* İmleç hareketini yumuşat: ışık parmağın peşinden "sürünsün" */
+  transition: background var(--dur-fast) linear;
+}
+
+/* Huzme VARSAYILAN olarak kendi kendine gezinir — her cihazda.
+   Gerçek bir imleç hareketi algılanınca JS `.has-pointer` ekler
+   ve süzülme durur, takip devreye girer.
+
+   Neden `@media (hover: none)` kullanılmadı:
+   O sorgu bazı ortamlarda (bazı tarayıcı/işletim sistemi
+   kombinasyonları, uzak masaüstü, gömülü görünümler) yanlış cevap
+   veriyor — bu projede test sırasında masaüstünde `none` döndüğü
+   görüldü. Yetenek tespiti tahmine değil, GERÇEKLEŞEN OLAYA
+   dayanmalı: fare hareket ettiyse fare vardır. */
+.hero { animation: torch-drift 11s var(--ease) infinite alternate; }
+.hero.has-pointer { animation: none; }
+
+@keyframes torch-drift {
+  from { --torch-x: 26%; --torch-y: 60%; }
+  to   { --torch-x: 76%; --torch-y: 34%; }
+}
+
+/* Metnin arkası her koşulda okunaklı kalsın.
+   Kontrast garantisi tasarımın değil, mühendisliğin işi. */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(100deg,
+    var(--bg) 0%,
+    color-mix(in srgb, var(--bg) 82%, transparent) 42%,
+    transparent 78%);
+}
+
+.hero__inner {
+  position: relative;
+  z-index: var(--z-base);
+  max-width: 40rem;
 }
 
 .hero__title {
-  font-size: var(--text-5xl);
-  font-weight: var(--font-weight-black);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  margin-top: var(--space-md);
+  font-size: var(--step-5);
+  font-weight: var(--fw-bold);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  color: var(--chrome);
+}
+/* Vurgulu kelime: mavi + arkasında zayıf bir ışıma.
+   Gradient METİN kullanılmadı — okunabilirliği düşürüyor ve
+   "AI sitesi" görüntüsünün en tipik işareti o. */
+.hero__title em {
+  font-style: normal;
+  color: var(--accent-hi);
+  text-shadow: 0 0 28px rgba(46, 155, 255, .45);
 }
 
-.hero__subtitle {
-  font-size: var(--text-lg);
-  color: var(--clr-zinc-400);
-  line-height: 1.7;
-  max-width: 30rem;
+.hero__lead {
+  margin-top: var(--space-md);
+  max-width: 34rem;
+  font-size: var(--step-1);
+  color: var(--fg-muted);
+  line-height: 1.65;
 }
 
 .hero__actions {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
 }
 
+@media (max-width: 479px) {
+  .hero__actions { flex-direction: column; align-items: stretch; }
+}
+
+/* ---- Hero istatistikleri: sadece doğrulanmış bilgi ---- */
 .hero__stats {
-  display: flex;
-  gap: var(--space-xl);
-  padding-top: var(--space-xl);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(8.5rem, 100%), 1fr));
+  gap: var(--space-md);
   margin-top: var(--space-xl);
-  border-top: var(--border-subtle);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--border);
 }
 
 .hero__stat-value {
-  font-size: var(--text-3xl);
-  font-weight: var(--font-weight-black);
+  font-size: var(--step-2);
+  font-weight: var(--fw-bold);
+  color: var(--chrome);
+  letter-spacing: -0.01em;
   font-variant-numeric: tabular-nums;
 }
-
 .hero__stat-label {
-  font-size: var(--text-xs);
-  color: var(--clr-zinc-500);
-  margin-top: 0.25rem;
-  font-weight: var(--font-weight-medium);
+  margin-bottom: 0.15rem;
+  font-size: var(--step--1);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
 
-.hero__image-wrapper {
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-
-.hero__image-inner {
-  position: relative;
-  display: inline-block;
-  max-width: 400px;
-  width: 100%;
-}
-
-.hero__image-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
-  border-radius: 50%;
-  filter: blur(40px);
-  transform: scale(0.8);
-}
-
+/* ---- Aşağı kaydır ----
+   Eskiden tıklanamayan bir <div>'di. Artık gerçek bir <a>. */
 .hero__scroll {
   position: absolute;
-  bottom: var(--space-xl);
   left: 50%;
+  bottom: var(--space-lg);
   transform: translateX(-50%);
-}
-
-/* Floating tags positioned absolutely relative to hero__image-inner */
-.hero__float-tag--right {
-  position: absolute;
-  right: -6rem;
-  top: 18%;
-  z-index: 2;
+  z-index: var(--z-base);
   display: none;
-}
-
-.hero__float-tag--left {
-  position: absolute;
-  left: -6rem;
-  bottom: 28%;
-  z-index: 2;
-  display: none;
-}
-
-/* ---- Product Detail Section ---- */
-.product-detail__text {
-  display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  align-items: center;
+  gap: 0.35rem;
+  font-size: var(--step--1);
+  color: var(--fg-subtle);
+}
+.hero__scroll:hover { color: var(--accent-hi); }
+.hero__scroll .icon { width: 1rem; height: 1rem; }
+
+@media (min-width: 768px) and (min-height: 700px) {
+  .hero__scroll { display: flex; }
 }
 
-.product-detail__title {
-  font-size: var(--text-4xl);
-  font-weight: var(--font-weight-black);
-  line-height: 1.1;
-}
-
-.product-detail__description {
-  font-size: var(--text-lg);
-  color: var(--clr-zinc-400);
-  line-height: 1.8;
-}
-
-/* ---- Specs Section ---- */
-.specs__content {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-2xl);
-  align-items: start;
-}
-
-/* ---- CTA Section ---- */
-.cta-box {
-  padding: var(--space-2xl);
-  border-radius: var(--radius-2xl);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.cta-box__title {
-  font-size: var(--text-4xl);
-  font-weight: var(--font-weight-black);
-  margin-bottom: var(--space-md);
-}
-
-.cta-box__subtitle {
-  font-size: var(--text-lg);
-  color: var(--clr-zinc-400);
-  max-width: 35rem;
-  margin-inline: auto;
-  margin-bottom: var(--space-2xl);
-}
-
-.cta-box__decor {
+/* İpucu: huzmenin varlığını kullanıcıya sezdiren küçük not.
+   Etkileşimi keşfedilmeyen özellik, olmayan özelliktir. */
+.hero__hint {
   position: absolute;
-  border-radius: 50%;
-  background: rgba(6, 182, 212, 0.04);
-  pointer-events: none;
+  right: var(--container-pad);
+  bottom: var(--space-lg);
+  z-index: var(--z-base);
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--step--1);
+  color: var(--fg-subtle);
+}
+.hero__hint .icon { width: 0.95rem; height: 0.95rem; color: var(--accent); }
+
+/* İpucu sadece gerçekten imleci olan geniş ekranda görünür.
+   Telefonda "imleci gezdirin" yazmak anlamsız olurdu. */
+@media (min-width: 900px) {
+  .hero.has-pointer .hero__hint { display: flex; }
 }
 
-.cta-box__decor--top {
-  width: 20rem;
-  height: 20rem;
-  top: 0;
-  right: 0;
-  transform: translate(30%, -50%);
+/* ============================================================
+   ÜRÜN / GALERİ
+   ============================================================ */
+.product__lead { max-width: 44rem; }
+
+.product__points { margin-top: var(--space-xl); }
+
+.media-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-lg);
 }
 
-.cta-box__decor--bottom {
-  width: 14rem;
-  height: 14rem;
-  bottom: 0;
-  left: 0;
-  transform: translate(-30%, 50%);
+/* ============================================================
+   YARDIMCILAR
+   ============================================================ */
+.rule {
+  height: 1px;
+  border: 0;
+  background: var(--border);
 }
 
-/* ---- Video Section ---- */
-.video-section {
-  max-width: 56rem;
-  margin-inline: auto;
-}
-
-/* ---- Responsive Overrides ---- */
-@media (min-width: 640px) {
-  .hero__actions {
-    flex-direction: row;
-  }
-}
-
-@media (min-width: 768px) {
-  .hero__content {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .hero__image-wrapper {
-    justify-content: flex-end;
-  }
-
-  .specs__content {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (min-width: 1024px) {
-  .cta-box {
-    padding: var(--space-3xl);
-  }
-
-  .hero__float-tag--right,
-  .hero__float-tag--left {
-    display: flex;
-  }
-
-  .hero__float-tag--right {
-    right: -7rem;
-  }
-
-  .hero__float-tag--left {
-    left: -7rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  .hero__float-tag--right {
-    right: -9rem;
-  }
-
-  .hero__float-tag--left {
-    left: -9rem;
-  }
+/* Bölümü zeminden ayırmak için yüzey farkı — renk değil.
+   Renk değişimi kullanılsaydı sayfa "alacalı" görünürdü. */
+.section--raised {
+  background: var(--surface);
+  border-block: 1px solid var(--border);
 }

@@ -1,83 +1,103 @@
 /**
- * navigation.js — Mobile menu, scroll effects, smooth scroll
- * @module Navigation
+ * navigation.js — Navbar scroll durumu + mobil menü
+ *
+ * BURADA OLMAYAN ŞEY: smooth scroll.
+ * Eskiden 15 satırlık bir JS handler'ı vardı; artık CSS'te tek satır:
+ *     html { scroll-behavior: smooth }
+ * CSS versiyonu daha iyi çünkü:
+ *   - prefers-reduced-motion'a otomatik uyuyor
+ *   - URL'deki #hash'i bozmuyor (JS preventDefault ediyordu → geri tuşu çalışmıyordu)
+ *   - JS yüklenmese de çalışıyor
+ * Bir davranışı platform zaten sunuyorsa JS yazma.
  */
 
-/**
- * Initializes all navigation behaviors.
- * @param {Object} config
- * @param {string} config.navSelector        - Nav element selector
- * @param {string} config.mobileMenuSelector - Mobile menu panel selector
- * @param {string} config.mobileBtnSelector  - Hamburger button selector
- * @param {string} config.scrolledClass      - Class added on scroll
- * @param {number} config.scrollThreshold    - Pixels before nav style changes
- */
-export function initNavigation(config = {}) {
-  const {
-    navSelector = '.nav',
-    mobileMenuSelector = '.nav__mobile-menu',
-    mobileBtnSelector = '.nav__mobile-btn',
-    scrolledClass = 'nav--scrolled',
-    scrollThreshold = 50,
-  } = config;
+const SCROLL_THRESHOLD = 24;
 
-  const nav = document.querySelector(navSelector);
-  const mobileMenu = document.querySelector(mobileMenuSelector);
-  const mobileBtn = document.querySelector(mobileBtnSelector);
+export function initNavigation() {
+  initScrollState();
+  initMobileMenu();
+}
 
+/** Sayfa kaydırılınca navbar'a kenarlık/zemin ekler. */
+function initScrollState() {
+  const nav = document.getElementById('nav');
   if (!nav) return;
 
-  // ---- Mobile Menu Toggle ----
-  if (mobileBtn && mobileMenu) {
-    mobileBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('is-open');
+  // Scroll her pikselde tetiklenir. Doğrudan iş yapmak yerine
+  // requestAnimationFrame ile ekran yenilemesine senkronlanır —
+  // yoksa main thread dolar ve INP (etkileşim gecikmesi) bozulur.
+  let ticking = false;
 
-      const isOpen = mobileMenu.classList.contains('is-open');
-      mobileBtn.setAttribute('aria-expanded', isOpen);
-    });
-
-    // Close on link click
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.remove('is-open');
-        mobileBtn.setAttribute('aria-expanded', 'false');
-      });
-    });
-  }
-
-  // ---- Navbar Scroll Effect ----
-  let lastScrollY = 0;
-
-  const handleNavScroll = () => {
-    const currentScrollY = window.scrollY;
-
-    if (currentScrollY > scrollThreshold) {
-      nav.classList.add(scrolledClass);
-    } else {
-      nav.classList.remove(scrolledClass);
-    }
-
-    lastScrollY = currentScrollY;
+  const update = () => {
+    nav.classList.toggle('nav--scrolled', window.scrollY > SCROLL_THRESHOLD);
+    ticking = false;
   };
 
-  window.addEventListener('scroll', handleNavScroll, { passive: true });
-  handleNavScroll(); // Run on init
+  // passive: true → tarayıcıya "preventDefault çağırmayacağım" der,
+  // böylece kaydırmayı bloklamadan devam edebilir.
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }, { passive: true });
 
-  // ---- Smooth Scroll for Anchor Links ----
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e) => {
-      const href = anchor.getAttribute('href');
-      if (href === '#') return;
+  update();
+}
 
-      const target = document.querySelector(href);
-      if (!target) return;
+/**
+ * Mobil menü.
+ * Erişilebilirlik gereği dört davranış: aç/kapa, ESC, dışarı tıklama,
+ * ve kapanınca odağın butona geri dönmesi.
+ */
+function initMobileMenu() {
+  const toggle = document.getElementById('nav-toggle');
+  const panel = document.getElementById('nav-mobile');
+  if (!toggle || !panel) return;
 
-      e.preventDefault();
+  const setOpen = (open) => {
+    panel.classList.toggle('is-open', open);
+    // aria-expanded ekran okuyucuya menünün açık olduğunu söyler.
+    // String olmak zorunda — ARIA öznitelikleri boolean kabul etmez.
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Menüyü kapat' : 'Menüyü aç');
 
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-    });
+    if (open) {
+      // Menü açılınca odak içeri gitsin; klavye kullanıcısı
+      // aksi halde görünmeyen bir yerde kalır.
+      panel.querySelector('a')?.focus();
+    } else {
+      // Kapanınca odak tetikleyen butona döner — kaybolmaz.
+      toggle.focus();
+    }
+  };
+
+  const isOpen = () => panel.classList.contains('is-open');
+
+  toggle.addEventListener('click', () => setOpen(!isOpen()));
+
+  // Menüdeki bir linke tıklanınca kapan (aynı sayfa içi navigasyon)
+  panel.addEventListener('click', (e) => {
+    if (e.target.closest('a')) setOpen(false);
+  });
+
+  // ESC ile kapat — her açılır katmanın olması gereken davranışı.
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen()) setOpen(false);
+  });
+
+  // Menünün dışına tıklayınca kapat
+  document.addEventListener('click', (e) => {
+    if (!isOpen()) return;
+    if (panel.contains(e.target) || toggle.contains(e.target)) return;
+    setOpen(false);
+  });
+
+  // Masaüstü genişliğine geçilince açık kalmış menüyü kapat.
+  // matchMedia, resize'dan ucuzdur: sadece eşik geçilince tetiklenir.
+  window.matchMedia('(min-width: 900px)').addEventListener('change', (e) => {
+    if (e.matches && isOpen()) {
+      panel.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
   });
 }

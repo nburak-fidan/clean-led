@@ -1,266 +1,250 @@
-/* ============================================
-   BASE.CSS — Reset, Design Tokens, Typography
-   ============================================ */
+/* ============================================================
+   BASE.CSS — Reset, design token'ları, tipografi
+   Buradaki hiçbir kural bir bileşene ait değildir.
+   Bileşenler bu token'ları TÜKETİR, kendi hex kodunu yazmaz.
+   ============================================================ */
 
-/* --- Modern CSS Reset --- */
+/* ---------- Modern reset ---------- */
 *,
 *::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+*::after { box-sizing: border-box; }
+
+* { margin: 0; padding: 0; }
 
 html {
-  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
 
+/* Smooth scroll SADECE kullanıcı hareket kısıtlaması istemiyorsa.
+   Vestibüler rahatsızlığı olan kullanıcı için animasyon = baş dönmesi. */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* Anchor'a atlayınca hedef sabit navbar'ın ALTINDA kalmasın.
+   Eski sitede yoktu; "#features"a tıklayınca başlık navbar'a giriyordu. */
+:where([id]) { scroll-margin-top: calc(var(--nav-h) + 1.5rem); }
+
 body {
-  min-height: 100vh;
+  min-height: 100svh;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  /* overflow-x:hidden bir çözüm değil, semptom bastırıcıdır.
+     Taşma varsa kaynağı düzeltilir. Yine de güvenlik ağı olarak: */
+  overflow-x: clip;
 }
 
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-width: 100%;
-}
+img, picture, video, canvas, svg { display: block; max-width: 100%; }
+img, video { height: auto; }
 
-input,
-button,
-textarea,
-select {
-  font: inherit;
-  color: inherit;
-}
+input, button, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; border: none; background: none; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
 
-button {
-  cursor: pointer;
-  border: none;
-  background: none;
-}
+/* Uzun kelimeler dar ekranda taşmasın (TR'de "değerlendirme" gibi) */
+p, h1, h2, h3, h4 { overflow-wrap: break-word; }
+h1, h2, h3, h4 { text-wrap: balance; }
+p { text-wrap: pretty; }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-ul,
-ol {
-  list-style: none;
-}
-
-/* --- Design Tokens (Custom Properties) --- */
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
 :root {
-  /* === Colors === */
+  /* ---------- Renk ----------
+     Palet logodan türetildi: krom/gümüş gövde + elektrik mavisi huzme,
+     koyu lacivert-siyah zemin.
 
-  /* Dark palette */
-  --clr-dark-950: #04050a;
-  --clr-dark-900: #07080f;
-  --clr-dark-800: #0c0d16;
-  --clr-dark-700: #12141f;
-  --clr-dark-600: #1a1c2a;
-  --clr-dark-500: #242636;
-  --clr-dark-400: #2e3044;
+     "CIRTLAK" SORUNUNUN GERÇEK SEBEBİ:
+     Eski sitede 6 ayrı accent vardı (cyan+blue+purple+green+rose+gold)
+     ve accent BÜYÜK yüzeylerde kullanılıyordu (gradient başlıklar,
+     dev glow lekeleri). Çözüm maviyi soldurmak değil —
+     tek renge indirip KULLANIM ALANINI küçültmek.
+     Kural: mavi sadece küçük alanlarda (ikon, buton, ince çizgi,
+     kısa vurgu kelimesi). Büyük yüzeyler daima nötr kalır. */
 
-  /* Primary accent — Cyan/Ice Blue */
-  --clr-accent-50: #ecfeff;
-  --clr-accent-100: #cffafe;
-  --clr-accent-200: #a5f3fc;
-  --clr-accent-300: #67e8f9;
-  --clr-accent-400: #22d3ee;
-  --clr-accent-500: #06b6d4;
-  --clr-accent-600: #0891b2;
-  --clr-accent-700: #0e7490;
+  /* Yüzeyler — mavi alt tonlu siyah (logonun zemini gibi) */
+  --bg:          #050810;
+  --surface:     #0a1020;
+  --surface-2:   #101830;
+  --surface-3:   #18223c;
 
-  /* Secondary accent — Warm Gold (sparingly) */
-  --clr-gold-300: #fcd34d;
-  --clr-gold-400: #fbbf24;
-  --clr-gold-500: #f59e0b;
-  --clr-gold-600: #d97706;
+  /* Kenarlıklar — hairline, hafif mavi çalar */
+  --border:      rgba(120, 170, 255, .12);
+  --border-hi:   rgba(120, 170, 255, .26);
 
-  /* Neutrals */
-  --clr-white: #f4f4f5;
-  --clr-zinc-200: #e4e4e7;
-  --clr-zinc-300: #d4d4d8;
-  --clr-zinc-400: #a1a1aa;
-  --clr-zinc-500: #71717a;
-  --clr-zinc-600: #52525b;
-  --clr-zinc-700: #3f3f46;
-  --clr-zinc-800: #27272a;
+  /* Metin — 3 kademe. Kontrast (--bg üstünde):
+       --fg        ~17.9:1  ✔
+       --fg-muted  ~ 8.4:1  ✔ gövde metni
+       --fg-subtle ~ 4.8:1  ✔ sadece küçük etiket */
+  --fg:          #eef4fb;
+  --fg-muted:    #a7bbd4;
+  --fg-subtle:   #7489a5;
 
-  /* Semantic colors */
-  --clr-success: #34d399;
-  --clr-info: #60a5fa;
-  --clr-warning: #fbbf24;
-  --clr-danger: #f87171;
+  /* Tek accent — logonun huzme mavisi.
+     Kontrast --bg üstünde ~6.3:1 → metin olarak da kullanılabilir. */
+  --accent:      #2e9bff;
+  --accent-hi:   #7cc4ff;
+  --accent-deep: #0a5fbf;
+  --accent-wash: rgba(46, 155, 255, .12);
+  --accent-line: rgba(46, 155, 255, .38);
+  /* Accent ZEMİN üstüne yazılan metin — mavi üstünde beyaz zayıf kalır. */
+  --on-accent:   #03111f;
 
-  /* === Gradients === */
-  --gradient-accent: linear-gradient(135deg, var(--clr-accent-300), var(--clr-accent-500));
-  --gradient-accent-warm: linear-gradient(135deg, var(--clr-accent-400), var(--clr-gold-500));
-  --gradient-dark: linear-gradient(180deg, var(--clr-dark-800), var(--clr-dark-950));
-  --gradient-glass: linear-gradient(135deg, rgba(255,255,255, 0.04), rgba(255,255,255, 0.01));
-  --gradient-text: linear-gradient(135deg, var(--clr-accent-200), var(--clr-accent-400), var(--clr-accent-600));
+  /* Krom/gümüş — logodaki metal gövdenin karşılığı.
+     Marka hissini taşır ama accent sayılmaz (renksizdir). */
+  --chrome:      #d6e2f0;
+  --chrome-dim:  #8fa3bb;
 
-  /* === Typography === */
-  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-weight-light: 300;
-  --font-weight-normal: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-  --font-weight-extrabold: 800;
-  --font-weight-black: 900;
+  /* Marka renkleri: accent sistemine dahil DEĞİL, istisna.
+     WhatsApp yeşili tanınırlık için korunur. */
+  --brand-whatsapp: #25d366;
 
-  /* Fluid type scale — clamp(min, preferred, max) */
-  --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);
-  --text-sm: clamp(0.8rem, 0.75rem + 0.25vw, 0.875rem);
-  --text-base: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
-  --text-lg: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
-  --text-xl: clamp(1.15rem, 1rem + 0.75vw, 1.5rem);
-  --text-2xl: clamp(1.4rem, 1.1rem + 1.5vw, 2rem);
-  --text-3xl: clamp(1.75rem, 1.3rem + 2.25vw, 2.75rem);
-  --text-4xl: clamp(2.25rem, 1.5rem + 3.75vw, 3.75rem);
-  --text-5xl: clamp(2.75rem, 1.75rem + 5vw, 5rem);
+  /* ---------- Tipografi ---------- */
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
-  /* === Spacing === */
-  --space-xs: clamp(0.25rem, 0.2rem + 0.25vw, 0.5rem);
-  --space-sm: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);
-  --space-md: clamp(0.75rem, 0.6rem + 0.75vw, 1.25rem);
-  --space-lg: clamp(1.25rem, 1rem + 1.25vw, 2rem);
-  --space-xl: clamp(2rem, 1.5rem + 2.5vw, 3.5rem);
-  --space-2xl: clamp(3rem, 2rem + 5vw, 6rem);
-  --space-3xl: clamp(4rem, 2.5rem + 7.5vw, 8rem);
+  /* Ölçek: clamp(min, akışkan, max).
+     ÖNEMLİ: max değerler eskiden 5rem (80px) idi — "monitöre sığmıyor"
+     şikayetinin sebebi buydu. Üst sınırlar makul seviyeye çekildi. */
+  --step--1: clamp(0.8125rem, 0.79rem + 0.12vw, 0.875rem);
+  --step-0:  clamp(0.9375rem, 0.91rem + 0.15vw, 1rem);
+  --step-1:  clamp(1.0625rem, 1.02rem + 0.25vw, 1.1875rem);
+  --step-2:  clamp(1.1875rem, 1.11rem + 0.4vw, 1.375rem);
+  --step-3:  clamp(1.375rem, 1.22rem + 0.75vw, 1.75rem);
+  --step-4:  clamp(1.75rem, 1.45rem + 1.5vw, 2.5rem);
+  --step-5:  clamp(2.125rem, 1.65rem + 2.4vw, 3.25rem);
 
-  /* === Layout === */
-  --container-max: 1200px;
-  --container-padding: clamp(1rem, 0.5rem + 2.5vw, 2rem);
-  --section-padding: var(--space-3xl);
+  --fw-normal:   400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
 
-  /* === Borders & Radius === */
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
-  --radius-2xl: 2rem;
-  --radius-full: 9999px;
-  --border-subtle: 1px solid rgba(255, 255, 255, 0.06);
-  --border-accent: 1px solid rgba(6, 182, 212, 0.2);
+  /* ---------- Aralık ----------
+     4px tabanlı ölçek. "Göze göre" boşluk = tutarsız ritim. */
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2rem;
+  --space-2xl: 3rem;
+  --space-3xl: clamp(3.5rem, 2.5rem + 4vw, 6rem);
 
-  /* === Shadows === */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
-  --shadow-accent: 0 8px 40px rgba(6, 182, 212, 0.15);
-  --shadow-accent-lg: 0 20px 60px rgba(6, 182, 212, 0.2);
+  /* ---------- Layout ---------- */
+  --container:      1120px;
+  --container-pad:  clamp(1rem, 0.6rem + 1.8vw, 2rem);
+  --section-pad:    var(--space-3xl);
+  --topbar-h:       2.25rem;
+  --nav-h:          3.75rem;
+  /* Mobildeki sabit alt CTA barının yüksekliği.
+     Token olarak duruyor çünkü İKİ yerde lazım:
+     body'nin alt boşluğunda ve hero'nun yükseklik hesabında.
+     Elle iki yere 4.25rem yazılsaydı biri değişince diğeri unutulurdu. */
+  --mobile-cta-h:   4.25rem;
 
-  /* === Transitions === */
-  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --duration-fast: 200ms;
-  --duration-normal: 350ms;
-  --duration-slow: 600ms;
+  /* ---------- Radius ----------
+     Eskiden 2rem'e kadar çıkıyordu; büyük radius "oyuncak" hissi verir.
+     Minimal/profesyonel görünüm için küçük tutuldu. */
+  --r-sm:   6px;
+  --r-md:   10px;
+  --r-lg:   14px;
+  --r-full: 999px;
 
-  /* === Z-index layers === */
-  --z-base: 1;
-  --z-dropdown: 10;
-  --z-sticky: 20;
-  --z-nav: 50;
-  --z-modal: 100;
+  /* ---------- Gölge ----------
+     Dark UI'da gölge zayıf çalışır; asıl derinlik border + yüzey farkıyla gelir. */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, .45);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, .55);
+
+  /* ---------- Hareket ---------- */
+  --ease:      cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast:  150ms;
+  --dur:       250ms;
+  --dur-slow:  450ms;
+
+  /* ---------- Katman sırası ----------
+     z-index'i elle "9999" yazmak yerine merkezî sıra.
+     Böylece hangi şeyin neyin üstünde olduğu TEK yerden okunur. */
+  --z-base:    1;
+  --z-sticky:  20;
+  --z-nav:     50;
+  --z-overlay: 80;
+  --z-modal:   100;
 }
 
-/* --- Base Body Styles --- */
+/* ============================================================
+   BASE ELEMENTS
+   ============================================================ */
 body {
-  font-family: var(--font-family);
-  font-size: var(--text-base);
-  font-weight: var(--font-weight-normal);
-  color: var(--clr-white);
-  background-color: var(--clr-dark-900);
-  background-image: var(--gradient-dark);
-  background-attachment: fixed;
+  font-family: var(--font);
+  font-size: var(--step-0);
+  font-weight: var(--fw-normal);
+  color: var(--fg);
+  background-color: var(--bg);
 }
 
-/* --- Container --- */
+/* Mobil CTA barı içeriğin son satırını örtmesin */
+@media (max-width: 767px) {
+  body { padding-bottom: var(--mobile-cta-h); }
+}
+
+a { transition: color var(--dur-fast) var(--ease); }
+
+/* Klavye kullanıcısı nerede olduğunu GÖRMELİ.
+   :focus değil :focus-visible — fare tıklamasında halka çıkmaz. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+::selection { background: var(--accent-wash); color: var(--fg); }
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--surface-3);
+  border-radius: var(--r-full);
+  border: 3px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover { background: #34343a; }
+
+/* ============================================================
+   LAYOUT PRIMITIVES
+   ============================================================ */
 .container {
   width: 100%;
-  max-width: var(--container-max);
+  max-width: var(--container);
   margin-inline: auto;
-  padding-inline: var(--container-padding);
+  padding-inline: var(--container-pad);
 }
 
-/* --- Fluid Typography Utilities --- */
-.text-xs { font-size: var(--text-xs); }
-.text-sm { font-size: var(--text-sm); }
-.text-base { font-size: var(--text-base); }
-.text-lg { font-size: var(--text-lg); }
-.text-xl { font-size: var(--text-xl); }
-.text-2xl { font-size: var(--text-2xl); }
-.text-3xl { font-size: var(--text-3xl); }
-.text-4xl { font-size: var(--text-4xl); }
-.text-5xl { font-size: var(--text-5xl); }
+.section { padding-block: var(--section-pad); }
 
-/* --- Gradient Text --- */
-.text-gradient {
-  background: var(--gradient-text);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-warm {
-  background: var(--gradient-accent-warm);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* --- Section Base --- */
-.section {
-  position: relative;
-  padding-block: var(--section-padding);
+/* Görsel olarak gizli ama ekran okuyucuya açık.
+   display:none KULLANILMAZ — o, ekran okuyucudan da gizler. */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
   overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
-/* --- Links --- */
-a {
-  transition: color var(--duration-fast) var(--ease-out);
+/* Klavyeyle gelen kullanıcı 20 nav linkini geçmek zorunda kalmasın */
+.skip-link {
+  position: absolute;
+  left: var(--space-md);
+  top: -100%;
+  z-index: var(--z-modal);
+  padding: var(--space-xs) var(--space-md);
+  background: var(--accent);
+  color: var(--on-accent);
+  border-radius: var(--r-sm);
+  font-weight: var(--fw-semibold);
+  transition: top var(--dur) var(--ease);
 }
-
-/* --- Selection color --- */
-::selection {
-  background-color: rgba(6, 182, 212, 0.3);
-  color: var(--clr-white);
-}
-
-/* --- Scrollbar --- */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--clr-dark-950);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--clr-accent-600);
-  border-radius: var(--radius-full);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--clr-accent-500);
-}
-
-/* --- Focus Visible --- */
-:focus-visible {
-  outline: 2px solid var(--clr-accent-400);
-  outline-offset: 2px;
-}
+.skip-link:focus-visible { top: var(--space-md); }

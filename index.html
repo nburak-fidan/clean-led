@@ -2,631 +2,534 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CLEAN LED — Profesyonel LED aydınlatmalı süpürge başlığı. Üstün emiş gücü, dayanıklı tasarım ve uzun ömürlü batarya ile temizlikte yeni nesil çözüm.">
-    <meta name="theme-color" content="#07080f">
-    <title>CLEAN LED | Profesyonel LED Aydınlatmalı Süpürge Başlığı</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Favicon (placeholder) -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>">
+    <title>CLEAN LED — Araç İçi Temizlikte Aydınlık Çözümler</title>
+    <meta name="description" content="Araç içi sanayi tipi süpürge makinesi başlığı. LED aydınlatmalı, Türkiye ve dünyada tek patentli kendi üretimimiz. Koltuk altı, bagaj, torpido — karanlık noktada kalan kir yok.">
+    <meta name="theme-color" content="#050810">
 
-    <!-- Stylesheets -->
+    <link rel="canonical" href="https://nburak-fidan.github.io/clean-led/">
+
+    <!-- Open Graph: WhatsApp/Instagram'da link paylaşılınca çıkan önizleme.
+         Trafiğin çoğu WhatsApp'tan geleceği için kritik. -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="tr_TR">
+    <meta property="og:site_name" content="CLEAN LED">
+    <meta property="og:title" content="CLEAN LED — Araç İçi Temizlikte Aydınlık Çözümler">
+    <meta property="og:description" content="LED aydınlatmalı, patentli araç içi süpürge makinesi başlığı. Karanlık noktada kalan kir yok.">
+    <meta property="og:url" content="https://nburak-fidan.github.io/clean-led/">
+    <!-- TODO: 1200x630 px paylaşım görseli (logo iyi bir başlangıç) -->
+    <meta property="og:image" content="https://nburak-fidan.github.io/clean-led/assets/images/og-cover.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- TODO: logoyu 32x32 ve 180x180 olarak kaydedip gerçek favicon koy -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23050810'/><circle cx='16' cy='14' r='6' fill='none' stroke='%232e9bff' stroke-width='2.5'/><rect x='13' y='21' width='6' height='3' rx='1.5' fill='%232e9bff'/></svg>">
+
+    <!-- preconnect: "bu sunucuya bağlanacağım, şimdiden el sıkış" —
+         DNS+TLS süresini LCP'den düşürür.
+         wght@400..800 = TEK değişken font dosyası (eskiden 7 ayrı ağırlık). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap">
+
+    <!-- @import zinciri yerine paralel <link>: dosyalar aynı anda iner. -->
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/components.css">
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/animations.css">
+
+    <!-- Structured data — sadece doğrulanmış bilgiler. Uydurma fiyat/puan yok. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "CLEAN LED — Araç İçi Süpürge Makinesi Başlığı",
+      "description": "LED aydınlatmalı, araç içi sanayi tipi süpürge makinesi başlığı. Türkiye ve dünyada tek patentli kendi üretimimiz.",
+      "category": "Temizlik Ekipmanı",
+      "brand": { "@type": "Brand", "name": "CLEAN LED" },
+      "url": "https://nburak-fidan.github.io/clean-led/",
+      "sameAs": ["https://www.instagram.com/cleanled.tr/"]
+    }
+    </script>
 </head>
 <body>
 
-    <!-- ===================== TOPBAR ===================== -->
-    <div class="topbar">
-        <div class="container">
-            <div class="topbar__inner">
-                <div class="topbar__contact">
-                    <a href="tel:+905555555555" class="topbar__item" aria-label="Bizi arayın">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                        </svg>
-                        +90 (555) 555 55 55
-                    </a>
-                    <div class="topbar__divider"></div>
-                    <a href="mailto:info@cleanled.com.tr" class="topbar__item" aria-label="E-posta gönderin">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                        </svg>
-                        info@cleanled.com.tr
-                    </a>
-                    <div class="topbar__divider topbar__item--hide-mobile"></div>
-                    <a href="https://maps.google.com/?q=Istanbul,Turkey" target="_blank" rel="noopener noreferrer" class="topbar__item topbar__item--hide-mobile" aria-label="Konumumuzu görün">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        </svg>
-                        İstanbul, Türkiye
-                    </a>
-                </div>
-                <div class="topbar__socials">
-                    <a href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" class="topbar__social" aria-label="WhatsApp">
-                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    </a>
-                    <a href="#" class="topbar__social" aria-label="Instagram">
-                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    </a>
-                    <a href="#" class="topbar__social" aria-label="LinkedIn">
-                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                    </a>
-                </div>
-            </div>
+<!-- ============================================================
+     ⚠️  KALAN YER TUTUCULAR (detay: docs/TODO.md)
+     - Hero arka plan fotoğrafı  → .hero__stage üzerindeki --hero-image
+     - Tanıtım videosu           → .video-slot
+     - Galeri görselleri         → .media-slot (4 adet)
+     - og:image                  → 1200x630 paylaşım görseli
+     İletişim bilgileri gerçek: 0555 454 55 35 / @cleanled.tr
+     ============================================================ -->
+
+<a class="skip-link" href="#main">İçeriğe geç</a>
+
+<!-- ============================================================
+     IKON SPRITE
+     Her ikon BİR KEZ tanımlanır, <use> ile defalarca kullanılır.
+     Eskiden aynı WhatsApp yolu 5 kez kopyalanmıştı (~4KB fazla).
+     Hepsi aynı 24x24 gride ve aynı çizgi kalınlığına oturuyor —
+     "ikonlar kötü görünüyor" şikayetinin sebebi bu tutarsızlıktı.
+     ============================================================ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <!-- Arayüz ikonları: Lucide stili, 24x24, sadece çizgi -->
+    <symbol id="i-led" viewBox="0 0 24 24">
+        <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.8.8 1.3 1.5 1.5 2.5"/>
+        <path d="M9 18h6"/><path d="M10 22h4"/>
+    </symbol>
+    <symbol id="i-patent" viewBox="0 0 24 24">
+        <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/>
+        <path d="m9 12 2 2 4-4"/>
+    </symbol>
+    <symbol id="i-machine" viewBox="0 0 24 24">
+        <path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/>
+        <path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/>
+    </symbol>
+    <symbol id="i-tool" viewBox="0 0 24 24">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+    </symbol>
+    <symbol id="i-battery" viewBox="0 0 24 24">
+        <rect x="2" y="7" width="16" height="10" rx="2"/>
+        <path d="M22 11v2"/><path d="M6 11v2"/><path d="M10 11v2"/>
+    </symbol>
+    <symbol id="i-hand" viewBox="0 0 24 24">
+        <path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/>
+        <path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/>
+        <path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/>
+        <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>
+    </symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M6 3.5 20 12 6 20.5z"/></symbol>
+    <symbol id="i-cursor" viewBox="0 0 24 24">
+        <path d="M12.586 12.586 19 19"/>
+        <path d="M3.688 3.037a.497.497 0 0 0-.651.651l6.5 16a.5.5 0 0 0 .947-.062l1.569-6.083a2 2 0 0 1 1.448-1.479l6.124-1.579a.5.5 0 0 0 .063-.947z"/>
+    </symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <circle cx="9" cy="9" r="2"/>
+        <path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/>
+    </symbol>
+
+    <!-- Marka ikonları: resmî glif, DOLGU tabanlı.
+         Bilinçli istisna — marka logoları tanınırlığını korumalı. -->
+    <symbol id="i-whatsapp" viewBox="0 0 24 24">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+    </symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+    </symbol>
+</svg>
+
+<!-- ===================== TOPBAR ===================== -->
+<div class="topbar">
+    <div class="container topbar__inner">
+        <div class="topbar__contact">
+            <a href="tel:+905554545535" class="topbar__item">
+                <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
+                <span>0555 454 55 35</span>
+            </a>
+            <span class="topbar__item topbar__item--secondary">Araç içi temizlikte aydınlık çözümler</span>
+        </div>
+        <div class="topbar__socials">
+            <!-- LinkedIn kaldırıldı: kurumsal B2B kanalı, bu ürünün
+                 müşterisi (oto yıkamacı / detailer) orada değil. -->
+            <a href="https://wa.me/905554545535" target="_blank" rel="noopener" class="topbar__social" aria-label="WhatsApp">
+                <svg class="icon icon--brand" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+            </a>
+            <a href="https://www.instagram.com/cleanled.tr/" target="_blank" rel="noopener" class="topbar__social" aria-label="Instagram">
+                <svg class="icon icon--brand" aria-hidden="true"><use href="#i-instagram"/></svg>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== NAV ===================== -->
+<nav class="nav" id="nav" aria-label="Ana menü">
+    <div class="container nav__inner">
+        <a href="#hero" class="nav__logo">
+            <span class="nav__logo-mark">
+                <svg class="icon" aria-hidden="true"><use href="#i-led"/></svg>
+            </span>
+            CLEAN <span class="nav__logo-accent">LED</span>
+        </a>
+
+        <div class="nav__links">
+            <a href="#features" class="nav__link">Özellikler</a>
+            <a href="#product" class="nav__link">Ürün</a>
+            <a href="#gallery" class="nav__link">Galeri</a>
+        </div>
+
+        <!-- İki dönüşüm butonu da her ekranda görünür.
+             Dar ekranda metinler .sr-only'ye düşer, ikonlar kalır. -->
+        <div class="nav__actions">
+            <a href="tel:+905554545535" class="btn btn--primary btn--sm">
+                <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
+                <span class="btn__label">Ara</span>
+            </a>
+            <a href="https://wa.me/905554545535" target="_blank" rel="noopener" class="btn btn--whatsapp btn--sm">
+                <svg class="icon icon--brand" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+                <span class="btn__label">WhatsApp</span>
+            </a>
+            <button type="button" class="nav__toggle" id="nav-toggle"
+                    aria-expanded="false" aria-controls="nav-mobile" aria-label="Menüyü aç">
+                <svg class="icon nav__toggle-open" aria-hidden="true"><use href="#i-menu"/></svg>
+                <svg class="icon nav__toggle-close" aria-hidden="true"><use href="#i-close"/></svg>
+            </button>
         </div>
     </div>
 
-    <!-- ===================== NAVIGATION ===================== -->
-    <nav class="nav" id="main-nav" aria-label="Ana menü">
+    <div class="nav__mobile" id="nav-mobile">
         <div class="container">
-            <div class="nav__inner">
-                <!-- Logo -->
-                <a href="#hero" class="nav__logo" aria-label="CLEAN LED Anasayfa">
-                    <div class="nav__logo-icon">
-                        <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/>
-                        </svg>
-                    </div>
-                    <span class="nav__logo-text">CLEAN <span class="text-gradient">LED</span></span>
-                </a>
-
-                <!-- Desktop Menu -->
-                <div class="nav__menu">
-                    <a href="#features" class="nav__link">Özellikler</a>
-                    <a href="#product" class="nav__link">Ürün</a>
-                    <a href="#specs" class="nav__link">Teknik</a>
-                    <a href="#contact" class="nav__link">İletişim</a>
-                    <a href="#contact" class="btn btn--primary btn--sm nav__cta">Teklif Al</a>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <button class="nav__mobile-btn" aria-label="Menüyü aç" aria-expanded="false" aria-controls="mobile-menu">
-                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
-                </button>
+            <div class="nav__mobile-list">
+                <a href="#features" class="nav__mobile-link">Özellikler</a>
+                <a href="#product" class="nav__mobile-link">Ürün</a>
+                <a href="#gallery" class="nav__mobile-link">Galeri</a>
+                <a href="https://www.instagram.com/cleanled.tr/" target="_blank" rel="noopener" class="nav__mobile-link">Instagram</a>
             </div>
         </div>
+    </div>
+</nav>
 
-        <!-- Mobile Menu -->
-        <div class="nav__mobile-menu" id="mobile-menu" role="menu">
-            <a href="#features" class="nav__mobile-link" role="menuitem">Özellikler</a>
-            <a href="#product" class="nav__mobile-link" role="menuitem">Ürün</a>
-            <a href="#specs" class="nav__mobile-link" role="menuitem">Teknik</a>
-            <a href="#contact" class="nav__mobile-link" role="menuitem">İletişim</a>
-            <a href="#contact" class="btn btn--primary" role="menuitem" style="margin-top: 0.75rem; width: 100%;">Teklif Al</a>
-        </div>
-    </nav>
+<main id="main">
 
     <!-- ===================== HERO ===================== -->
-    <section id="hero" class="section hero">
-        <!-- Ambient Background Glows -->
-        <div class="ambient" style="width:600px;height:600px;background:var(--clr-accent-600);top:20%;left:15%;"></div>
-        <div class="ambient" style="width:400px;height:400px;background:var(--clr-accent-700);bottom:20%;right:15%;"></div>
+    <section class="hero" id="hero">
+        <!-- Aydınlatılacak katman. Gerçek fotoğraf eklemek için:
+             <div class="hero__stage" style="--hero-image:url('./assets/images/hero.webp')"></div>
+             Fotoğraf yokken de logodan alınan ışık çizgileri görünür. -->
+        <div class="hero__stage"></div>
+        <div class="hero__torch"></div>
 
         <div class="container">
-            <div class="hero__content">
-                <!-- Left: Text -->
-                <div class="anim-fade-in">
-                    <div class="badge glass" style="margin-bottom: var(--space-lg);">
-                        <span class="badge__dot anim-pulse"></span>
-                        <span class="badge__text">Profesyonel Temizlik Çözümü</span>
-                    </div>
+            <div class="hero__inner">
+                <span class="badge">
+                    <span class="badge__dot anim-pulse"></span>
+                    Türkiye ve dünyada tek patentli üretim
+                </span>
 
-                    <h1 class="hero__title">
-                        Temizlikte<br>
-                        <span class="text-gradient">Yeni Nesil</span><br>
-                        Teknoloji
-                    </h1>
+                <h1 class="hero__title">
+                    Karanlık noktada<br>kalan <em>kir yok</em>
+                </h1>
 
-                    <p class="hero__subtitle" style="margin-top: var(--space-lg);">
-                        LED aydınlatmalı, yüksek emiş güçlü ve dayanıklı yapısıyla profesyonel temizlik deneyimini yeniden tanımlıyoruz.
-                    </p>
+                <p class="hero__lead">
+                    Araç içi sanayi tipi süpürge makinesi başlığı — LED aydınlatmalı.
+                    Koltuk altı, bagaj, torpido: nereye girdiğini gör, tek seferde temizle.
+                </p>
 
-                    <div class="hero__actions" style="margin-top: var(--space-xl);">
-                        <a href="#contact" class="btn btn--primary">
-                            Teklif Al
-                            <svg class="btn__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                            </svg>
-                        </a>
-                        <a href="#features" class="btn btn--secondary">
-                            <svg style="width:1.1em;height:1.1em;color:var(--clr-accent-400);" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                            Keşfet
-                        </a>
-                    </div>
-
-                    <!-- Quick Stats -->
-                    <div class="hero__stats">
-                        <div>
-                            <div class="hero__stat-value text-gradient" data-counter data-target="360" data-suffix="°">0°</div>
-                            <div class="hero__stat-label">LED Aydınlatma</div>
-                        </div>
-                        <div>
-                            <div class="hero__stat-value text-gradient" data-counter data-target="3" data-suffix="x">0x</div>
-                            <div class="hero__stat-label">Daha Güçlü Emiş</div>
-                        </div>
-                        <div>
-                            <div class="hero__stat-value text-gradient" data-counter data-target="12" data-suffix=" saat">0 saat</div>
-                            <div class="hero__stat-label">Batarya Ömrü</div>
-                        </div>
-                    </div>
+                <div class="hero__actions">
+                    <a href="tel:+905554545535" class="btn btn--primary">
+                        <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
+                        0555 454 55 35
+                    </a>
+                    <a href="https://wa.me/905554545535" target="_blank" rel="noopener" class="btn btn--whatsapp">
+                        <svg class="icon icon--brand" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+                        WhatsApp'tan Yaz
+                    </a>
                 </div>
 
-                <!-- Right: Product Image -->
-                <div class="hero__image-wrapper anim-fade-in anim-delay-200">
-                    <div class="hero__image-inner">
-                        <div class="hero__image-glow"></div>
-                        <img 
-                            src="./assets/images/product-hero.jpeg" 
-                            alt="CLEAN LED Profesyonel Süpürge Başlığı — LED aydınlatmalı oto süpürge aksesuarı" 
-                            class="product-frame__img anim-float"
-                            width="400"
-                            height="600"
-                            loading="eager"
-                        >
-                        <!-- Floating Tags -->
-    
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Scroll Indicator -->
-        <div class="hero__scroll scroll-indicator">
-            <span class="scroll-indicator__text">Aşağı Kaydır</span>
-            <div class="scroll-indicator__mouse">
-                <div class="scroll-indicator__dot anim-bounce"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Divider -->
-    <div class="divider anim-line" style="margin-block: var(--space-md);"></div>
-
-    <!-- ===================== FEATURES ===================== -->
-    <section id="features" class="section">
-        <div class="ambient" style="width:500px;height:500px;background:var(--clr-accent-700);top:0;right:0;"></div>
-
-        <div class="container">
-            <header class="section-header reveal">
-                <span class="section-header__tag">Neden CLEAN LED?</span>
-                <h2 class="section-header__title">Profesyonel <span class="text-gradient">Özellikler</span></h2>
-                <p class="section-header__subtitle">Temizlik sektöründe fark yaratan teknolojiler, tek bir üründe birleşiyor.</p>
-            </header>
-
-            <div class="grid-4 reveal-stagger reveal">
-                <!-- Feature 1: LED -->
-                <article class="feature-card glass">
-                    <div class="feature-card__icon feature-card__icon--cyan">
-                        <svg style="color:var(--clr-accent-400);" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-card__title">LED Aydınlatma</h3>
-                    <p class="feature-card__description">360° LED aydınlatma ile karanlık alanlar dahil her noktayı net bir şekilde görün. Toz ve kiri asla kaçırmayın.</p>
-                    <div class="feature-card__footer">
-                        <span class="feature-card__tag feature-card__tag--cyan">360° Kapsama Alanı</span>
-                    </div>
-                </article>
-
-                <!-- Feature 2: Sağlamlık -->
-                <article class="feature-card glass">
-                    <div class="feature-card__icon feature-card__icon--blue">
-                        <svg style="color:var(--clr-info);" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-card__title">Sağlamlık</h3>
-                    <p class="feature-card__description">Endüstriyel kalitede malzeme ile üretilmiştir. Darbelere dayanıklı, uzun ömürlü ve güvenilir yapı.</p>
-                    <div class="feature-card__footer">
-                        <span class="feature-card__tag feature-card__tag--blue">Endüstriyel Kalite</span>
-                    </div>
-                </article>
-
-                <!-- Feature 3: Emiş Gücü -->
-                <article class="feature-card glass">
-                    <div class="feature-card__icon feature-card__icon--purple">
-                        <svg style="color:#a855f7;" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-card__title">Emiş Gücü</h3>
-                    <p class="feature-card__description">Optimize edilmiş hava akışı tasarımı ile standart başlıklara kıyasla 3 kata kadar daha güçlü emiş performansı.</p>
-                    <div class="feature-card__footer">
-                        <span class="feature-card__tag feature-card__tag--purple">3x Daha Güçlü</span>
-                    </div>
-                </article>
-
-                <!-- Feature 4: Batarya -->
-                <article class="feature-card glass">
-                    <div class="feature-card__icon feature-card__icon--green">
-                        <svg style="color:var(--clr-success);" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-card__title">Uzun Batarya</h3>
-                    <p class="feature-card__description">Yüksek kapasiteli Li-ion batarya ile LED aydınlatma 12 saate kadar kesintisiz çalışır. Şarj süresi minimum.</p>
-                    <div class="feature-card__footer">
-                        <span class="feature-card__tag feature-card__tag--green">12 Saat Batarya</span>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===================== PRODUCT DETAIL ===================== -->
-    <section id="product" class="section">
-        <div class="ambient" style="width:600px;height:600px;background:var(--clr-accent-700);bottom:0;left:0;"></div>
-
-        <div class="container">
-            <div class="grid-2-col">
-                <!-- Product Image -->
-                <div class="reveal--left reveal">
-                    <div class="product-frame glass">
-                        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(6,182,212,0.05),transparent);border-radius:var(--radius-2xl);pointer-events:none;"></div>
-                        <img 
-                            src="./assets/images/product-hero.jpeg" 
-                            alt="CLEAN LED ürün detay görünümü" 
-                            class="product-frame__img"
-                            width="600"
-                            height="800"
-                            loading="lazy"
-                        >
-                        <div class="product-frame__corner product-frame__corner--tl"></div>
-                        <div class="product-frame__corner product-frame__corner--br"></div>
-                    </div>
-                </div>
-
-                <!-- Product Info -->
-                <div class="product-detail__text reveal--right reveal">
-                    <span class="section-header__tag" style="text-align:left;">Ürün Detayı</span>
-                    <h2 class="product-detail__title">
-                        Profesyoneller İçin<br>
-                        <span class="text-gradient">Tasarlandı</span>
-                    </h2>
-                    <p class="product-detail__description">
-                        CLEAN LED, oto yıkama ve temizlik sektöründeki profesyonellerin ihtiyaçları doğrultusunda tasarlanmış, 
-                        LED aydınlatma entegreli gelişmiş bir süpürge başlığıdır. Büyük firmalarla çalışan profesyoneller için 
-                        üstün performans ve güvenilirlik sunar.
-                    </p>
-
-                    <!-- Key Points -->
-                    <div class="checklist">
-                        <div class="checklist__item">
-                            <div class="checklist__icon">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <div class="checklist__title">Kolay Montaj</div>
-                                <div class="checklist__text">Tüm standart süpürge borularına uyumlu evrensel bağlantı sistemi.</div>
-                            </div>
-                        </div>
-                        <div class="checklist__item">
-                            <div class="checklist__icon">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <div class="checklist__title">Ergonomik Tasarım</div>
-                                <div class="checklist__text">Uzun süreli kullanımda bile konfor sağlayan hafif ve dengeli yapı.</div>
-                            </div>
-                        </div>
-                        <div class="checklist__item">
-                            <div class="checklist__icon">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <div class="checklist__title">USB-C Şarj</div>
-                                <div class="checklist__text">Hızlı şarj destekli modern USB-C bağlantısı.</div>
-                            </div>
-                        </div>
-                    </div>
-
+                <!-- Sadece doğrulanmış üç bilgi.
+                     Eski sitedeki "3x emiş", "12 saat batarya", "IP54"
+                     kaldırıldı: kaynağı yoktu ve ürün kalem pille çalışıyor. -->
+                <dl class="hero__stats">
                     <div>
-                        <a href="#contact" class="btn btn--primary" style="margin-top: var(--space-lg);">
-                            Detaylı Bilgi Al
-                            <svg class="btn__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                            </svg>
-                        </a>
+                        <dt class="hero__stat-label">Aydınlatma</dt>
+                        <dd class="hero__stat-value">LED</dd>
                     </div>
-                </div>
+                    <div>
+                        <dt class="hero__stat-label">Üretim</dt>
+                        <dd class="hero__stat-value">Patentli</dd>
+                    </div>
+                    <div>
+                        <dt class="hero__stat-label">Güç kaynağı</dt>
+                        <dd class="hero__stat-value">Kalem pil</dd>
+                    </div>
+                </dl>
             </div>
         </div>
+
+        <a href="#features" class="hero__scroll">
+            <span>Aşağı kaydır</span>
+            <svg class="icon" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+        </a>
+
+        <!-- Keşfedilmeyen etkileşim, olmayan etkileşimdir. -->
+        <p class="hero__hint">
+            <svg class="icon" aria-hidden="true"><use href="#i-cursor"/></svg>
+            İmleci gezdirin — ışık sizi takip etsin
+        </p>
     </section>
 
-    <!-- ===================== SPECS ===================== -->
-    <section id="specs" class="section">
-        <div class="ambient" style="width:400px;height:400px;background:#7c3aed;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
-
+    <!-- ===================== ÖZELLİKLER ===================== -->
+    <section class="section section--raised" id="features">
         <div class="container">
-            <header class="section-header reveal">
-                <span class="section-header__tag">Teknik Özellikler</span>
-                <h2 class="section-header__title">Rakamlarla <span class="text-gradient">CLEAN LED</span></h2>
+            <header class="section-header section-header--center reveal">
+                <span class="eyebrow">Neden CLEAN LED</span>
+                <h2 class="section-title">Üç şey, net şekilde</h2>
             </header>
 
-            <div class="specs__content">
-                <!-- Spec Bars -->
-                <div class="reveal">
-                    <div class="spec-bar">
-                        <div class="spec-bar__header">
-                            <span class="spec-bar__label">LED Aydınlatma Gücü</span>
-                            <span class="spec-bar__value" style="color:var(--clr-accent-400);">95%</span>
-                        </div>
-                        <div class="spec-bar__track">
-                            <div class="spec-bar__fill spec-bar__fill--cyan" data-width="95%"></div>
-                        </div>
-                    </div>
-                    <div class="spec-bar">
-                        <div class="spec-bar__header">
-                            <span class="spec-bar__label">Emiş Performansı</span>
-                            <span class="spec-bar__value" style="color:#a855f7;">90%</span>
-                        </div>
-                        <div class="spec-bar__track">
-                            <div class="spec-bar__fill spec-bar__fill--purple" data-width="90%"></div>
-                        </div>
-                    </div>
-                    <div class="spec-bar">
-                        <div class="spec-bar__header">
-                            <span class="spec-bar__label">Dayanıklılık</span>
-                            <span class="spec-bar__value" style="color:var(--clr-info);">92%</span>
-                        </div>
-                        <div class="spec-bar__track">
-                            <div class="spec-bar__fill spec-bar__fill--blue" data-width="92%"></div>
-                        </div>
-                    </div>
-                    <div class="spec-bar">
-                        <div class="spec-bar__header">
-                            <span class="spec-bar__label">Batarya Ömrü</span>
-                            <span class="spec-bar__value" style="color:var(--clr-success);">88%</span>
-                        </div>
-                        <div class="spec-bar__track">
-                            <div class="spec-bar__fill spec-bar__fill--green" data-width="88%"></div>
-                        </div>
-                    </div>
-                    <div class="spec-bar">
-                        <div class="spec-bar__header">
-                            <span class="spec-bar__label">Uyumluluk</span>
-                            <span class="spec-bar__value" style="color:#fb7185;">96%</span>
-                        </div>
-                        <div class="spec-bar__track">
-                            <div class="spec-bar__fill spec-bar__fill--rose" data-width="96%"></div>
-                        </div>
-                    </div>
-                </div>
+            <div class="features-grid reveal-stagger reveal">
+                <article class="feature-card">
+                    <span class="feature-card__icon">
+                        <svg class="icon" aria-hidden="true"><use href="#i-led"/></svg>
+                    </span>
+                    <h3 class="feature-card__title">LED Aydınlatma</h3>
+                    <p class="feature-card__text">
+                        Başlığın önü aydınlanır. Koltuk altı, bagaj ve torpido gibi
+                        karanlık noktalarda kirin nerede olduğunu görürsünüz.
+                    </p>
+                </article>
 
-                <!-- Stat Cards -->
-                <div class="grid-2 reveal-stagger reveal">
-                    <div class="stat-card glass hover-glow">
-                        <div class="stat-card__value text-gradient">360°</div>
-                        <div class="stat-card__label">LED Kapsama</div>
-                    </div>
-                    <div class="stat-card glass hover-glow">
-                        <div class="stat-card__value" style="color:var(--clr-info);">IP54</div>
-                        <div class="stat-card__label">Su Dayanımı</div>
-                    </div>
-                    <div class="stat-card glass hover-glow">
-                        <div class="stat-card__value" style="color:#a855f7;">3x</div>
-                        <div class="stat-card__label">Emiş Gücü</div>
-                    </div>
-                    <div class="stat-card glass hover-glow">
-                        <div class="stat-card__value" style="color:var(--clr-success);">12h</div>
-                        <div class="stat-card__label">Batarya Süresi</div>
-                    </div>
-                    <div class="stat-card glass hover-glow">
-                        <div class="stat-card__value" style="color:#fb7185;">280g</div>
-                        <div class="stat-card__label">Hafif Yapı</div>
-                    </div>
-                    <div class="stat-card glass hover-glow">
-                        <div class="stat-card__value" style="color:var(--clr-gold-400);">USB-C</div>
-                        <div class="stat-card__label">Hızlı Şarj</div>
-                    </div>
-                </div>
+                <article class="feature-card">
+                    <span class="feature-card__icon">
+                        <svg class="icon" aria-hidden="true"><use href="#i-patent"/></svg>
+                    </span>
+                    <h3 class="feature-card__title">Patentli Üretim</h3>
+                    <p class="feature-card__text">
+                        Türkiye ve dünyada tek patentli tasarım. Kendi üretimimiz —
+                        ithal ikame değil, orijinal ürün.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <span class="feature-card__icon">
+                        <svg class="icon" aria-hidden="true"><use href="#i-machine"/></svg>
+                    </span>
+                    <h3 class="feature-card__title">Sanayi Tipi Uyum</h3>
+                    <p class="feature-card__text">
+                        Araç içi sanayi tipi süpürge makineleri için tasarlandı.
+                        Büyük boy yıkamacı süpürgelerinin hepsiyle uyumlu.
+                    </p>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- ===================== VIDEO ===================== -->
-    <section id="video" class="section">
-        <div class="container video-section">
+    <!-- ===================== ÜRÜN ===================== -->
+    <section class="section" id="product">
+        <div class="container">
             <header class="section-header reveal">
-                <span class="section-header__tag">Ürün Videosu</span>
-                <h2 class="section-header__title"><span class="text-gradient">Aksiyonda</span> Görün</h2>
+                <span class="eyebrow">Ürün</span>
+                <h2 class="section-title">Gün boyu elde kalacak şekilde tasarlandı</h2>
+                <p class="section-lead product__lead">
+                    Ağırlık dengeli dağıtıldı, tutuş yormuyor. Araç içi temizliği
+                    işi olarak yapan profesyoneller için.
+                </p>
             </header>
 
-            <div class="reveal--scale reveal">
-                <div class="video-block glass anim-glow">
-                    <div class="video-block__inner" id="video-container">
-                        <div style="text-align:center;">
-                            <div class="video-block__play" id="play-btn" role="button" aria-label="Videoyu oynat" tabindex="0">
-                                <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M8 5v14l11-7z"/>
-                                </svg>
-                            </div>
-                            <p style="color:var(--clr-zinc-500);font-size:var(--text-sm);margin-top:var(--space-md);">Video yakında eklenecek</p>
-                        </div>
+            <!-- Kart değil liste: bunlar "özellik" değil kullanım detayı.
+                 Aynı görsel dil tekrarlanırsa kullanıcı ikinci bölümü okumaz. -->
+            <div class="checklist product__points reveal-stagger reveal">
+                <div class="checklist__item">
+                    <span class="checklist__icon">
+                        <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+                    </span>
+                    <div>
+                        <div class="checklist__title">Kolay Montaj</div>
+                        <p class="checklist__text">
+                            Büyük boy yıkamacı süpürgelerinin hepsine uyan aparat.
+                            Söküp takmak saniyeler sürer.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="checklist__item">
+                    <span class="checklist__icon">
+                        <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+                    </span>
+                    <div>
+                        <div class="checklist__title">Ergonomik Tasarım</div>
+                        <p class="checklist__text">
+                            Hafif ve dengeli tutuş. Uzun kullanımda bileği yormaz,
+                            LED ışık çalıştığınız yeri aydınlatır.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="checklist__item">
+                    <span class="checklist__icon">
+                        <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+                    </span>
+                    <div>
+                        <div class="checklist__title">Kalem Pil</div>
+                        <p class="checklist__text">
+                            Şarj beklemek yok. Kalem pille çalışır, uzun süre gider,
+                            pil bitince anında değiştirirsiniz.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===================== CONTACT / CTA ===================== -->
-    <section id="contact" class="section">
-        <div class="ambient" style="width:600px;height:600px;background:var(--clr-accent-700);top:0;left:50%;transform:translateX(-50%);opacity:0.08;"></div>
-
-        <div class="container" style="max-width:56rem;">
-            <div class="cta-box glass--strong reveal--scale reveal">
-                <div class="cta-box__decor cta-box__decor--top"></div>
-                <div class="cta-box__decor cta-box__decor--bottom"></div>
-
-                <div style="position:relative;">
-                    <span class="section-header__tag">İletişim</span>
-                    <h2 class="cta-box__title">Projenize <span class="text-gradient">Değer</span> Katın</h2>
-                    <p class="cta-box__subtitle">
-                        Toptan satış, bayilik veya özel sipariş için bizimle iletişime geçin. 
-                        Profesyonel ekibimiz size en kısa sürede dönüş yapacaktır.
-                    </p>
-
-                    <!-- Contact Form -->
-                    <form id="contact-form" class="form" style="max-width:32rem;margin-inline:auto;text-align:left;">
-                        <div class="form__row">
-                            <div>
-                                <label for="name" class="form__label">Ad Soyad</label>
-                                <input type="text" id="name" name="name" placeholder="Adınız Soyadınız" class="form__input" required>
-                            </div>
-                            <div>
-                                <label for="company" class="form__label">Firma</label>
-                                <input type="text" id="company" name="company" placeholder="Firma Adı" class="form__input">
-                            </div>
-                        </div>
-                        <div>
-                            <label for="email" class="form__label">E-posta</label>
-                            <input type="email" id="email" name="email" placeholder="ornek@firma.com" class="form__input" required>
-                        </div>
-                        <div>
-                            <label for="phone" class="form__label">Telefon</label>
-                            <input type="tel" id="phone" name="phone" placeholder="+90 5XX XXX XX XX" class="form__input">
-                        </div>
-                        <div>
-                            <label for="message" class="form__label">Mesaj</label>
-                            <textarea id="message" name="message" rows="4" placeholder="Projeniz hakkında bilgi verin..." class="form__textarea"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn--primary" style="width:100%;">
-                            Teklif Talebi Gönder
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===================== FOOTER ===================== -->
-    <footer class="footer">
+    <!-- ===================== GALERİ + VİDEO ===================== -->
+    <section class="section section--raised" id="gallery">
         <div class="container">
-            <div class="footer__grid">
-                <!-- Brand -->
+            <header class="section-header section-header--center reveal">
+                <span class="eyebrow">İş başında</span>
+                <h2 class="section-title">Ürünü çalışırken görün</h2>
+            </header>
+
+            <!-- Tanıtım videosu alanı.
+                 Sahte "oynat" butonu YOK — video gelene kadar ne olacağı yazıyor.
+                 Video geldiğinde bu div'in içine şunu koy:
+                 <video src="./assets/video/tanitim.mp4"
+                        poster="./assets/images/video-poster.webp"
+                        controls preload="none" playsinline></video>
+                 (preload="none": video izlenmezse tek byte inmez.) -->
+            <div class="video-slot reveal">
+                <svg class="icon" aria-hidden="true"><use href="#i-play"/></svg>
+                <span class="media-slot__label">Tanıtım videosu</span>
+                <span class="media-slot__hint">16:9 · mp4 (H.264) · 1080p · 10 MB altı</span>
+            </div>
+
+            <!-- Instagram gönderileri.
+                 Her kutuyu şununla değiştir:
+                 <a class="media-slot" href="GÖNDERİ_LİNKİ" target="_blank" rel="noopener">
+                   <img src="./assets/images/ig-1.webp" alt="Ürün koltuk altını temizlerken"
+                        width="600" height="600" loading="lazy">
+                 </a> -->
+            <div class="media-grid reveal-stagger reveal">
+                <div class="media-slot">
+                    <svg class="icon" aria-hidden="true"><use href="#i-image"/></svg>
+                    <span class="media-slot__label">Instagram görseli 1</span>
+                    <span class="media-slot__hint">kare · 600×600 · webp</span>
+                </div>
+                <div class="media-slot">
+                    <svg class="icon" aria-hidden="true"><use href="#i-image"/></svg>
+                    <span class="media-slot__label">Instagram görseli 2</span>
+                    <span class="media-slot__hint">kare · 600×600 · webp</span>
+                </div>
+                <div class="media-slot">
+                    <svg class="icon" aria-hidden="true"><use href="#i-image"/></svg>
+                    <span class="media-slot__label">Instagram görseli 3</span>
+                    <span class="media-slot__hint">kare · 600×600 · webp</span>
+                </div>
+                <div class="media-slot">
+                    <svg class="icon" aria-hidden="true"><use href="#i-image"/></svg>
+                    <span class="media-slot__label">Instagram görseli 4</span>
+                    <span class="media-slot__hint">kare · 600×600 · webp</span>
+                </div>
+            </div>
+
+            <div class="media-actions reveal">
+                <a href="https://www.instagram.com/cleanled.tr/" target="_blank" rel="noopener" class="btn btn--secondary">
+                    <svg class="icon icon--brand" aria-hidden="true"><use href="#i-instagram"/></svg>
+                    @cleanled.tr — hepsini gör
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== CTA ===================== -->
+    <section class="section" aria-labelledby="cta-title">
+        <div class="container">
+            <div class="cta-band reveal">
                 <div>
-                    <a href="#hero" class="nav__logo" aria-label="CLEAN LED Anasayfa">
-                        <div class="nav__logo-icon">
-                            <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/>
-                            </svg>
-                        </div>
-                        <span class="nav__logo-text">CLEAN <span class="text-gradient">LED</span></span>
-                    </a>
-                    <p class="footer__brand-text">
-                        Profesyonel temizlik çözümlerinde yeni nesil teknoloji. LED aydınlatmalı süpürge başlığı ile temizlikte devrim.
+                    <h2 class="cta-band__title" id="cta-title">Fiyat ve sipariş için arayın</h2>
+                    <p class="cta-band__text">
+                        Adet, fiyat ve gönderim detaylarını telefonda netleştiriyoruz.
+                        Form doldurmanıza gerek yok.
                     </p>
                 </div>
-
-                <!-- Quick Links -->
-                <div>
-                    <h4 class="footer__heading">Hızlı Bağlantılar</h4>
-                    <nav class="footer__links" aria-label="Footer navigasyon">
-                        <a href="#features" class="footer__link">Özellikler</a>
-                        <a href="#product" class="footer__link">Ürün</a>
-                        <a href="#specs" class="footer__link">Teknik Özellikler</a>
-                        <a href="#contact" class="footer__link">İletişim</a>
-                    </nav>
-                </div>
-
-                <!-- Contact Info -->
-                <div>
-                    <h4 class="footer__heading">İletişim</h4>
-                    <div class="footer__links">
-                        <a href="tel:+905555555555" class="footer__contact-item footer__link">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                            </svg>
-                            +90 (555) 555 55 55
-                        </a>
-                        <a href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" class="footer__contact-item footer__link">
-                            <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" style="width:1rem;height:1rem;color:var(--clr-accent-500);flex-shrink:0;">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                            </svg>
-                            WhatsApp İletişim
-                        </a>
-                        <a href="mailto:info@cleanled.com.tr" class="footer__contact-item footer__link">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                            </svg>
-                            info@cleanled.com.tr
-                        </a>
-                        <a href="https://maps.google.com/?q=Istanbul,Turkey" target="_blank" rel="noopener noreferrer" class="footer__contact-item footer__link">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            </svg>
-                            İstanbul, Türkiye
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer__bottom">
-                <p class="footer__copy">© 2026 CLEAN LED. Tüm hakları saklıdır.</p>
-                <div class="footer__socials">
-                    <a href="#" class="footer__social-link" aria-label="Instagram">
-                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                <div class="cta-band__actions">
+                    <a href="tel:+905554545535" class="btn btn--primary">
+                        <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
+                        0555 454 55 35
                     </a>
-                    <a href="#" class="footer__social-link" aria-label="WhatsApp">
-                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    </a>
-                    <a href="#" class="footer__social-link" aria-label="LinkedIn">
-                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    <a href="https://wa.me/905554545535" target="_blank" rel="noopener" class="btn btn--whatsapp">
+                        <svg class="icon icon--brand" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+                        WhatsApp'tan Yaz
                     </a>
                 </div>
             </div>
         </div>
-    </footer>
+    </section>
 
-    <!-- ===================== FLOATING ACTION BUTTONS (Desktop) ===================== -->
-    <div class="fab-group" aria-label="Hızlı iletişim">
-        <div class="fab-group__item">
-            <span class="fab-group__tooltip">Bizi arayın</span>
-            <a href="tel:+905555555555" class="fab-group__btn fab-group__btn--phone" aria-label="Telefon ile arayın">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                </svg>
-            </a>
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer__grid">
+            <div>
+                <a href="#hero" class="nav__logo">
+                    <span class="nav__logo-mark">
+                        <svg class="icon" aria-hidden="true"><use href="#i-led"/></svg>
+                    </span>
+                    CLEAN <span class="nav__logo-accent">LED</span>
+                </a>
+                <p class="footer__text">
+                    Araç içi temizlikte aydınlık çözümler.
+                    LED aydınlatmalı, patentli sanayi tipi süpürge makinesi başlığı.
+                </p>
+            </div>
+
+            <div>
+                <h2 class="footer__heading">Sayfa</h2>
+                <nav class="footer__list" aria-label="Alt menü">
+                    <a href="#features" class="footer__link">Özellikler</a>
+                    <a href="#product" class="footer__link">Ürün</a>
+                    <a href="#gallery" class="footer__link">Galeri</a>
+                </nav>
+            </div>
+
+            <div>
+                <h2 class="footer__heading">İletişim</h2>
+                <div class="footer__list">
+                    <a href="tel:+905554545535" class="footer__link">
+                        <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
+                        0555 454 55 35
+                    </a>
+                    <a href="https://wa.me/905554545535" target="_blank" rel="noopener" class="footer__link">
+                        <svg class="icon icon--brand" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+                        WhatsApp
+                    </a>
+                    <a href="https://www.instagram.com/cleanled.tr/" target="_blank" rel="noopener" class="footer__link">
+                        <svg class="icon icon--brand" aria-hidden="true"><use href="#i-instagram"/></svg>
+                        @cleanled.tr
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="fab-group__item">
-            <span class="fab-group__tooltip">WhatsApp ile yazın</span>
-            <a href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" class="fab-group__btn fab-group__btn--whatsapp" aria-label="WhatsApp ile iletişime geçin">
-                <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
-            </a>
+
+        <div class="footer__bottom">
+            <span>© 2026 CLEAN LED</span>
+            <span>Türkiye ve dünyada tek patentli üretim</span>
         </div>
     </div>
+</footer>
 
-    <!-- ===================== MOBILE CTA BAR ===================== -->
-    <div class="mobile-cta-bar">
-        <a href="tel:+905555555555" class="mobile-cta-bar__btn mobile-cta-bar__btn--phone" aria-label="Hemen Ara">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-            </svg>
-            Hemen Ara
-        </a>
-        <a href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" class="mobile-cta-bar__btn mobile-cta-bar__btn--whatsapp" aria-label="WhatsApp">
-            <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
-            WhatsApp
-        </a>
-    </div>
+<!-- ===================== HIZLI İLETİŞİM ===================== -->
+<div class="fab">
+    <a href="https://wa.me/905554545535" target="_blank" rel="noopener"
+       class="fab__btn fab__btn--whatsapp" aria-label="WhatsApp ile yazın">
+        <svg class="icon icon--brand" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+    </a>
+    <a href="tel:+905554545535" class="fab__btn fab__btn--phone" aria-label="Telefonla arayın">
+        <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
+    </a>
+</div>
 
-    <!-- ===================== SCRIPTS ===================== -->
-    <script type="module" src="./js/main.js"></script>
+<div class="mobile-cta">
+    <a href="tel:+905554545535" class="btn btn--primary">
+        <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
+        Hemen Ara
+    </a>
+    <a href="https://wa.me/905554545535" target="_blank" rel="noopener" class="btn btn--whatsapp">
+        <svg class="icon icon--brand" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+        WhatsApp
+    </a>
+</div>
+
+<!-- type="module" zaten defer gibi davranır: HTML ayrıştırmasını durdurmaz. -->
+<script type="module" src="./js/main.js"></script>
 </body>
 </html>
