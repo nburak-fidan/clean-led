@@ -205,8 +205,33 @@
         <!-- Aydınlatılacak katman. Gerçek fotoğraf eklemek için:
              <div class="hero__stage" style="--hero-image:url('./assets/images/hero.webp')"></div>
              Fotoğraf yokken de logodan alınan ışık çizgileri görünür. -->
-        <div class="hero__stage"></div>
+        <!-- Tam ekran arka plan.
+             <picture> ile telefon kendi dar sürümünü indirir (30KB),
+             masaüstü geniş olanı (130KB). "Responsive" sadece düzenin
+             kayması değil, hangi byte'ın indiği demek.
+             fetchpriority="high": bu görsel LCP elemanı, sıraya girmesin. -->
+        <picture class="hero__bg">
+            <source media="(max-width: 767px)" srcset="./assets/images/hero-bg-mobile.webp">
+            <img src="./assets/images/hero-bg.webp" alt=""
+                 width="1920" height="1080"
+                 fetchpriority="high" decoding="async">
+        </picture>
+        <div class="hero__scrim"></div>
         <div class="hero__torch"></div>
+
+        <!-- 3D ürün, sahnenin İÇİNE yerleştirildi (koltuk arası boşluğun
+             üstünde duruyor). JS yüklenmezse bu div boş kalır ve hiçbir
+             şey bozulmaz; hero fotoğraf + metin + butonlarla çalışır.
+             data-orbit: kamera açısı "yatay dikey mesafe".
+             data-orientation: modelin kendi dönüşü — ucu sola baksın diye. -->
+        <div class="hero__model-host"
+             data-hero-model
+             data-src="./assets/model/cleanled.glb"
+             data-orbit="25deg 72deg 105%"
+             data-orientation="0deg 180deg 0deg"
+             aria-hidden="true">
+            <span class="hero__beam"></span>
+        </div>
 
         <div class="container">
             <div class="hero__inner">

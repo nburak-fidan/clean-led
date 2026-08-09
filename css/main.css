@@ -45,6 +45,19 @@
 /* Mobilde ekranın altını sabit CTA barı kaplıyor.
    Hero yüksekliğinden düşülmezse son satır (istatistikler)
    barın ARKASINDA kalıyor — testte 703px vs 679px olarak ölçüldü. */
+/* Dar ekranda ürün metnin ALTINDA, kadranın alt bölgesinde kalır.
+   Yan yana yerleşim dikey ekranda ikisini de küçültür. */
+@media (max-width: 899px) {
+  .hero__model-host {
+    right: -8%;
+    bottom: 0;
+    width: 92%;
+    height: 44%;
+  }
+  .hero__model-host.is-ready { opacity: .9; }
+  .hero__beam { width: 20rem; height: 20rem; }
+}
+
 @media (max-width: 767px) {
   .hero {
     min-height: calc(100svh - var(--nav-h) - var(--topbar-h) - var(--mobile-cta-h));
@@ -63,35 +76,46 @@
   .hero__lead { margin-top: var(--space-sm); }
 }
 
-/* ---- Katman 1: aydınlatılacak doku ----
-   Logodaki huzme çizgileri + teknik ızgara.
-   Gerçek fotoğraf eklenince arkasına girer:
-     <div class="hero__stage" style="--hero-image:url('./assets/images/hero.webp')">
-   Görsel yoksa da dolu görünür — boş kutu bırakmıyoruz. */
-.hero__stage {
+/* ---- Katman 1: tam ekran fotoğraf ----
+   Kenarda bir "görsel kutusu" değil, sahnenin kendisi.
+   Metin bunun ÜSTÜNDE duruyor — sol/sağ bölünmüş slayt görünümü yok. */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  display: block;
+  pointer-events: none;
+}
+.hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Sağdaki koltuk arası boşluk kadrajda kalsın; dar ekranda
+     merkez kırpma o bölgeyi kesiyordu. */
+  object-position: 62% 60%;
+}
+
+/* ---- Katman 2: okunabilirlik ----
+   Fotoğrafın üstüne metin yazmanın bedeli kontrasttır.
+   Soldan sağa koyulaşan bir perde, başlığın arkasını garantiye alır;
+   sağ taraf açık kalır ki fotoğraf ve ürün görünsün.
+   Bu perde "tasarım tercihi" değil, ÖLÇÜLEBİLİR bir gereklilik:
+   onsuz metin kontrastı 4.5:1'in altına düşüyor. */
+.hero__scrim {
   position: absolute;
   inset: 0;
   z-index: -2;
-  background-image: var(--hero-image, none);
-  background-size: cover;
-  background-position: center right;
   pointer-events: none;
-}
-
-.hero__stage::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    /* logodan alıntı: eğik ışık çizgileri */
-    repeating-linear-gradient(114deg,
-      transparent 0 34px,
-      rgba(46, 155, 255, .16) 34px 35px,
-      transparent 35px 96px),
-    /* teknik ızgara */
-    linear-gradient(to right,  rgba(120, 170, 255, .07) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(120, 170, 255, .07) 1px, transparent 1px);
-  background-size: auto, 52px 52px, 52px 52px;
+  background:
+    linear-gradient(100deg,
+      var(--bg) 0%,
+      color-mix(in srgb, var(--bg) 93%, transparent) 34%,
+      color-mix(in srgb, var(--bg) 66%, transparent) 62%,
+      color-mix(in srgb, var(--bg) 18%, transparent) 100%),
+    /* alt vinyet: mobil CTA barına doğru yumuşak geçiş */
+    linear-gradient(to top,
+      color-mix(in srgb, var(--bg) 80%, transparent) 0%,
+      transparent 28%);
 }
 
 /* ---- Katman 2: huzme ----
@@ -103,12 +127,12 @@
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(circle 190px at var(--torch-x) var(--torch-y),
-      rgba(46, 155, 255, .16), transparent 72%),
-    radial-gradient(circle 300px at var(--torch-x) var(--torch-y),
+    radial-gradient(circle 230px at var(--torch-x) var(--torch-y),
+      rgba(46, 155, 255, .10), transparent 74%),
+    radial-gradient(circle 420px at var(--torch-x) var(--torch-y),
       transparent 0%,
-      color-mix(in srgb, var(--bg) 72%, transparent) 46%,
-      color-mix(in srgb, var(--bg) 97%, transparent) 100%);
+      color-mix(in srgb, var(--bg) 45%, transparent) 52%,
+      color-mix(in srgb, var(--bg) 88%, transparent) 100%);
   /* İmleç hareketini yumuşat: ışık parmağın peşinden "sürünsün" */
   transition: background var(--dur-fast) linear;
 }
@@ -131,24 +155,106 @@
   to   { --torch-x: 76%; --torch-y: 34%; }
 }
 
-/* Metnin arkası her koşulda okunaklı kalsın.
-   Kontrast garantisi tasarımın değil, mühendisliğin işi. */
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: linear-gradient(100deg,
-    var(--bg) 0%,
-    color-mix(in srgb, var(--bg) 82%, transparent) 42%,
-    transparent 78%);
-}
+/* NOT: Eskiden burada ikinci bir okunabilirlik perdesi vardı.
+   Artık .hero__scrim o işi yapıyor — iki ayrı perde üst üste
+   binince fotoğraf gereğinden fazla kararıyordu. */
 
 .hero__inner {
   position: relative;
   z-index: var(--z-base);
   max-width: 40rem;
+}
+
+/* ============================================================
+   HERO 3D ÜRÜN
+
+   Yerleşim kararı: ürün mutlak konumlandırılıyor, akışta değil.
+   Sebep — metin ve ürün BİRBİRİNİ İTMEMELİ. Grid'e koysaydık
+   dar ekranda ürün metni aşağı iter ve butonlar katlanın altına
+   düşerdi. Dönüşüm butonlarının görünürlüğü, 3D'den önemli.
+   ============================================================ */
+/* Ürün sahnenin İÇİNDE duruyor: koltuk arası boşluğun üstünde,
+   kadranın sağ-alt bölgesinde. Ortalanmış bir "ürün kutusu" değil —
+   fotoğrafla aynı mekânda görünmesi gereken bir nesne. */
+.hero__model-host {
+  position: absolute;
+  z-index: -1;               /* metin her zaman üstte kalır */
+  pointer-events: none;      /* alt katman tıklamayı yutmasın */
+  opacity: 0;
+  transition: opacity 900ms var(--ease);
+
+  right: -2%;
+  bottom: 4%;
+  width: min(62%, 46rem);
+  height: 62%;
+
+  /* "Kir çekme" hareketi — süpürgenin aşağı yukarı gidişi.
+     CSS'te, JS'te değil: transform animasyonu compositor'da koşar,
+     main thread'e hiç dokunmaz. Aynı şeyi rAF ile yapsaydık her
+     karede JS çalışırdı ve INP'yi riske atardı. */
+  animation: nozzle-work 3.4s var(--ease) infinite alternate;
+}
+
+/* Hareket KÜÇÜK ve YAVAŞ.
+   Büyük bir salınım "yüzen obje" gibi durur; süpürge ise kısa,
+   ölçülü hamleler yapar. 14px yol + 1.5° eğim o hissi veriyor. */
+@keyframes nozzle-work {
+  from { transform: translateY(-7px) rotate(-0.8deg); }
+  to   { transform: translateY(7px)  rotate(0.8deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__model-host { animation: none; }
+}
+
+/* Model yüklenip ilk kare çizilince belirir.
+   Yarım yüklenmiş model hiç gösterilmez. */
+.hero__model-host.is-ready { opacity: 1; }
+
+.hero__model {
+  width: 100%;
+  height: 100%;
+  /* model-viewer kendi arka planını basar; şeffaf olmalı ki
+     arkadaki karanlık sahne ve huzme görünsün. */
+  background-color: transparent;
+  --poster-color: transparent;
+  /* Sürükleyip döndürmek isteyene izin ver, ama sayfa kaydırmayı çalma */
+  pointer-events: auto;
+  cursor: grab;
+}
+.hero__model:active { cursor: grabbing; }
+
+/* ---- Ürünün etrafındaki LED ışıması ----
+   YÖNLÜ HUZME DEĞİL, HALE.
+   Sebep: ürün artık tam tur dönüyor. LED'in bulunduğu uç her saniye
+   ekranın başka yerine gidiyor; sabit konumlu yönlü bir huzme onunla
+   sürekli kopar. Ortalanmış yumuşak bir hale her açıda doğru durur
+   ve "cihaz ışık veriyor" hissini bozmadan taşır.
+
+   Konum ayarı: --beam-x / --beam-y (HTML'e dokunmadan). */
+.hero__beam {
+  position: absolute;
+  left: var(--beam-x, 50%);
+  top: var(--beam-y, 50%);
+  width: 34rem;
+  height: 34rem;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 50%,
+      rgba(124, 196, 255, .18) 0%,
+      rgba(46, 155, 255, .09) 30%,
+      transparent 65%);
+  filter: blur(10px);
+  animation: beam-breathe 6s var(--ease) infinite alternate;
+}
+
+/* Işık "nefes alır" — sabit parlaklık ölü görünür, LED ise
+   canlı bir cihazdır. Değişim çok küçük tutuldu (0.85 → 1.05);
+   fazlası yanıp sönen tabelaya benzer. */
+@keyframes beam-breathe {
+  from { opacity: .82; transform: translate(-50%, -50%) scale(0.97); }
+  to   { opacity: 1;   transform: translate(-50%, -50%) scale(1.04); }
 }
 
 .hero__title {
@@ -162,10 +268,12 @@
 /* Vurgulu kelime: mavi + arkasında zayıf bir ışıma.
    Gradient METİN kullanılmadı — okunabilirliği düşürüyor ve
    "AI sitesi" görüntüsünün en tipik işareti o. */
+/* Vurgu artık ışıldamıyor.
+   Metnin arkasına glow koymak ekranda "neon tabela" etkisi yapıyor
+   ve yapaylığın bir başka kaynağı. Rengin kendisi zaten yeterli. */
 .hero__title em {
   font-style: normal;
   color: var(--accent-hi);
-  text-shadow: 0 0 28px rgba(46, 155, 255, .45);
 }
 
 .hero__lead {

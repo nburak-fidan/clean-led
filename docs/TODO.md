@@ -6,27 +6,36 @@ Instagram `@cleanled.tr`. Aşağıdakiler hâlâ yer tutucu.
 
 ---
 
-## 1. Hero arka plan fotoğrafı — EN YÜKSEK ETKİ
+## 1. Hero — TAMAM ✔ (ince ayar kaldı)
 
-Hero'da "el feneri" etkisi var: imleç bir LED huzmesi gibi arkadaki
-katmanı aydınlatıyor. Şu an aydınlanan şey CSS ile çizilmiş ışık
-çizgileri. **Gerçek bir fotoğraf koyunca etki asıl anlamını kazanır.**
+Hero artık tam ekran fotoğraf + üstüne yerleşen metin + sahnenin
+içinde duran 3D ürün. Bölünmüş "solda yazı sağda görsel" düzeni yok.
 
-`index.html` içinde:
-```html
-<div class="hero__stage" style="--hero-image:url('./assets/images/hero.webp')"></div>
-```
+- Arka plan: `hero-bg.webp` 1920×1080 **130 KB**
+  (telefon `hero-bg-mobile.webp` 900×506 **31 KB** indiriyor)
+- 3D ürün: `assets/model/cleanled.glb` — **12 MB, HENÜZ OPTİMİZE DEĞİL**
+- Hareket: `nozzle-work` CSS animasyonu — süpürgenin aşağı-yukarı gidişi
 
-İdeal fotoğraf (Instagram'daki içeriklerden biri birebir uyuyor):
-- **Karanlık araç içi**, ürün çalışırken, LED ışığı görünüyor
-- Yatay, 1920×1080 civarı
-- **WebP, 200KB altı**
-- Sol taraf koyu/sade olmalı — başlık metni orada duruyor
+### Ayar noktaları (hepsi tek satır)
 
-Dönüştürme:
-```bash
-magick foto.jpg -resize 1920x1080^ -gravity center -extent 1920x1080 -quality 78 assets/images/hero.webp
-```
+| Ne | Nerede | Şu anki değer |
+|---|---|---|
+| Kamera açısı | `index.html` → `data-orbit` | `25deg 72deg 105%` |
+| Ürünün yönü | `index.html` → `data-orientation` | `0deg 180deg 0deg` |
+| Ürünün konumu | `css/main.css` → `.hero__model-host` | `right:-2% bottom:4%` |
+| Hareket hızı/mesafesi | `css/main.css` → `@keyframes nozzle-work` | 3.4sn, 14px |
+| Işımanın yeri | `css/main.css` → `--beam-x` / `--beam-y` | `50% / 50%` |
+| Fotoğraf kadrajı | `css/main.css` → `.hero__bg img` `object-position` | `62% 60%` |
+
+### ⚠️ Model optimizasyonu — yapılmayı bekliyor
+
+`cleanled.glb` şu an **12 MB**. Görünüşü onayladıktan sonra
+görüntüyü bozmadan ~3-4 MB'a inebilir:
+- Dokular 2048 → 1024 px (hero boyutunda fark edilmez)
+- Geometri hassasiyeti quantize (şekil aynı kalır)
+
+Sadeleştirme (`--simplify`) **KULLANILMAMALI** — denendi, ürünün
+düz panelleri ve keskin kenarları bozuldu, "buruşmuş" göründü.
 
 ## 2. Tanıtım videosu
 
