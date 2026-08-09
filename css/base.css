@@ -54,53 +54,54 @@ p { text-wrap: pretty; }
    ============================================================ */
 :root {
   /* ---------- Renk ----------
-     Palet logodan türetildi: krom/gümüş gövde + elektrik mavisi huzme,
-     koyu lacivert-siyah zemin.
+     "OYUNCAK GİBİ" SORUNUNUN SEBEBİ neydi:
+     Renk sayısı değil (zaten tek accent vardı), ÜÇ ayrı şey:
+       1. Accent'in DOYGUNLUĞU — #2e9bff neon bir mavi. Neon = ucuz.
+       2. Yüzeylerdeki MAVİ CAST — zemin, kenarlık ve gri metnin
+          hepsi maviye çalıyordu. Her şey renkliyse hiçbir şey vurgu
+          olmaz; ortam "çizgi film" gibi görünür.
+       3. IŞIMALAR (glow) — accent renkli box-shadow'lar. Gerçek
+          malzemeler ışımaz; ışıyan yüzey oyuncak plastiği hissi verir.
 
-     "CIRTLAK" SORUNUNUN GERÇEK SEBEBİ:
-     Eski sitede 6 ayrı accent vardı (cyan+blue+purple+green+rose+gold)
-     ve accent BÜYÜK yüzeylerde kullanılıyordu (gradient başlıklar,
-     dev glow lekeleri). Çözüm maviyi soldurmak değil —
-     tek renge indirip KULLANIM ALANINI küçültmek.
-     Kural: mavi sadece küçük alanlarda (ikon, buton, ince çizgi,
-     kısa vurgu kelimesi). Büyük yüzeyler daima nötr kalır. */
+     ÇÖZÜM: yüzeyler ve metin NÖTR grafit oldu (mavi cast yok),
+     accent doygunluğu düşürüldü, tüm renkli ışımalar silindi.
+     Mavi artık sadece küçük ve BİLİNÇLİ noktalarda. */
 
-  /* Yüzeyler — mavi alt tonlu siyah (logonun zemini gibi) */
-  --bg:          #050810;
-  --surface:     #0a1020;
-  --surface-2:   #101830;
-  --surface-3:   #18223c;
+  /* Yüzeyler — nötr grafit. Mavi cast kaldırıldı. */
+  --bg:          #0b0d11;
+  --surface:     #13161b;
+  --surface-2:   #1a1e24;
+  --surface-3:   #242930;
 
-  /* Kenarlıklar — hairline, hafif mavi çalar */
-  --border:      rgba(120, 170, 255, .12);
-  --border-hi:   rgba(120, 170, 255, .26);
+  /* Kenarlıklar — nötr beyaz hairline, renksiz */
+  --border:      rgba(255, 255, 255, .08);
+  --border-hi:   rgba(255, 255, 255, .16);
 
-  /* Metin — 3 kademe. Kontrast (--bg üstünde):
-       --fg        ~17.9:1  ✔
-       --fg-muted  ~ 8.4:1  ✔ gövde metni
-       --fg-subtle ~ 4.8:1  ✔ sadece küçük etiket */
-  --fg:          #eef4fb;
-  --fg-muted:    #a7bbd4;
-  --fg-subtle:   #7489a5;
+  /* Metin — NÖTR gri, mavi-gri değil.
+     Kontrast (--bg üstünde): fg ~16.9:1, muted ~8.9:1, subtle ~4.9:1 */
+  --fg:          #f2f4f6;
+  --fg-muted:    #b2b8bf;
+  --fg-subtle:   #7f868e;
 
-  /* Tek accent — logonun huzme mavisi.
-     Kontrast --bg üstünde ~6.3:1 → metin olarak da kullanılabilir. */
-  --accent:      #2e9bff;
-  --accent-hi:   #7cc4ff;
-  --accent-deep: #0a5fbf;
-  --accent-wash: rgba(46, 155, 255, .12);
-  --accent-line: rgba(46, 155, 255, .38);
-  /* Accent ZEMİN üstüne yazılan metin — mavi üstünde beyaz zayıf kalır. */
-  --on-accent:   #03111f;
+  /* Accent — doygunluğu düşürülmüş kurumsal mavi.
+     Kontrast --bg üstünde ~5.5:1 → ikon ve buton için yeterli. */
+  --accent:      #4b90d0;
+  --accent-hi:   #8bbce8;   /* metin/hover — ~9.3:1 */
+  --accent-deep: #2b5a85;
+  --accent-wash: rgba(75, 144, 208, .10);
+  --accent-line: rgba(75, 144, 208, .30);
+  /* Accent ZEMİN üstüne yazılan metin */
+  --on-accent:   #06121c;
 
-  /* Krom/gümüş — logodaki metal gövdenin karşılığı.
-     Marka hissini taşır ama accent sayılmaz (renksizdir). */
-  --chrome:      #d6e2f0;
-  --chrome-dim:  #8fa3bb;
+  /* Başlık rengi — mavi-gri krom yerine nötr açık gri.
+     Başlıklar RENKSİZ olunca sayfa daha pahalı görünür. */
+  --chrome:      #edf0f3;
+  --chrome-dim:  #9aa1a9;
 
   /* Marka renkleri: accent sistemine dahil DEĞİL, istisna.
-     WhatsApp yeşili tanınırlık için korunur. */
-  --brand-whatsapp: #25d366;
+     WhatsApp yeşili SADECE ikonda kullanılır — buton zeminini
+     yeşil yapmak mavi+yeşil "oyuncak" kombinasyonunu yaratıyordu. */
+  --brand-whatsapp: #3ddc7f;
 
   /* ---------- Tipografi ---------- */
   --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;

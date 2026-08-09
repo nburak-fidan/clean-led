@@ -6,6 +6,23 @@ Instagram `@cleanled.tr`. Aşağıdakiler hâlâ yer tutucu.
 
 ---
 
+## 0. DURUM ÖZETİ
+
+| Bölüm | Durum |
+|---|---|
+| Hero (fotoğraf + metin) | ✔ tamam |
+| Özellikler (3 kart) | ✔ tamam |
+| Ürün (3 madde) | ✔ tamam |
+| Videolar (2 Instagram Reel) | ✔ tamam |
+| Galeri (4 gerçek kare) | ✔ tamam |
+| İletişim / CTA | ✔ tamam |
+| **og:image** | ✖ eksik — WhatsApp önizlemesi çıkmıyor |
+| **Video kapak kareleri** | ✖ eksik — kartlar boş görünüyor |
+| **Hortuma takılı karesi** | ✖ eksik — "uyar mı?" sorusu cevapsız |
+| Favicon (gerçek logo) | ✖ şimdilik CSS ile çizilmiş |
+
+---
+
 ## 1. Hero — TAMAM ✔ (ince ayar kaldı)
 
 Hero artık tam ekran fotoğraf + üstüne yerleşen metin + sahnenin

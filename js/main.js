@@ -13,14 +13,12 @@
 
 import { initNavigation } from './navigation.js';
 import { initReveal } from './animations.js';
-import { initTorch } from './torch.js';
-import { initHero3d } from './hero3d.js';
+import { initReel } from './reel.js';
 
 function boot() {
   initNavigation();
   initReveal();
-  initTorch();
-  initHero3d();
+  initReel();
 }
 
 // type="module" scriptleri defer gibi davranır, yani DOM hazır olduktan

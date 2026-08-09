@@ -116,18 +116,19 @@
   font-size: var(--step-1);
   color: var(--chrome);
 }
-/* Logo markası: soluk wash yerine DOLU mavi zemin + koyu ikon.
-   Sebep: wash+ince kenarlık kombinasyonu 28px'lik bir alanda
-   neredeyse görünmüyordu. Küçük alanda kontrast yükseltilir. */
+/* Logo markası: düz accent zemin.
+   Gradient ve renkli ışıma KALDIRILDI — 32px'lik bir karede gradient
+   fark edilmez, ışıma ise "oyuncak plastiği" hissi veriyordu.
+   Düz renk + hairline kenarlık daha kurumsal durur. */
 .nav__logo-mark {
   display: grid;
   place-items: center;
   width: 2rem;
   height: 2rem;
   border-radius: var(--r-sm);
-  background: linear-gradient(150deg, var(--accent-hi), var(--accent-deep));
+  background: var(--accent);
   color: var(--on-accent);
-  box-shadow: 0 0 0 1px var(--accent-line), 0 4px 14px rgba(46, 155, 255, .28);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14);
 }
 .nav__logo-mark .icon { width: 1.05rem; height: 1.05rem; stroke-width: 2.25; }
 .nav__logo-accent { color: var(--accent-hi); }
@@ -258,13 +259,27 @@
 }
 .btn--secondary:hover { background: var(--surface-3); border-color: var(--fg-subtle); }
 
+/* WhatsApp butonu artık YEŞİL ZEMİNLİ DEĞİL.
+   Mavi birincil buton + parlak yeşil ikincil buton yan yana
+   duruyordu; "oyuncak" hissinin en büyük tek kaynağı buydu.
+   Şimdi nötr yüzey + hairline kenarlık, yeşil SADECE ikonda.
+   Marka tanınırlığı korunuyor, renk kütlesi kayboluyor.
+   Ayrıca hiyerarşi netleşiyor: arama birincil, WhatsApp ikincil. */
 .btn--whatsapp {
-  background: var(--brand-whatsapp);
-  color: #04170c;
+  background: var(--surface-2);
+  color: var(--fg);
+  border: 1px solid var(--border-hi);
 }
-.btn--whatsapp:hover { filter: brightness(1.08); }
+.btn--whatsapp .icon { color: var(--brand-whatsapp); }
+.btn--whatsapp:hover {
+  background: var(--surface-3);
+  border-color: var(--fg-subtle);
+}
 
 .btn--sm { min-height: 2.25rem; padding: 0.4rem 0.9rem; font-size: var(--step--1); }
+/* Hero'daki dönüşüm butonları. Sayfanın tek işi arama/WhatsApp
+   olduğu için bu ikisi her yerdekinden büyük olmalı. */
+.btn--lg { min-height: 3.25rem; padding: 0.9rem 1.6rem; font-size: var(--step-1); }
 .btn--block { width: 100%; }
 
 /* ============================================================
@@ -277,34 +292,18 @@
 .section-header--center { margin-inline: auto; text-align: center; }
 
 /* Bölüm üst etiketi.
-   Önceki hali sadece renkli metindi ve soluk kalıyordu.
-   Artık: daha kalın + önünde kısa bir "huzme" çizgisi (logodan alıntı).
-   Küçük tipografide belirginlik puntoyla değil, KONTRAST ve
-   yardımcı işaretle sağlanır. */
+   Süslü "huzme" çizgileri KALDIRILDI — dekoratif eklentiler
+   kurumsal görünümü düşürür. Belirginlik artık harf aralığı ve
+   ağırlıkla sağlanıyor; renk de nötr griye çekildi.
+   Her küçük etiketi mavi yapmak accent'i ucuzlatıyordu. */
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
+  display: inline-block;
   font-size: var(--step--1);
-  font-weight: var(--fw-bold);
-  letter-spacing: 0.14em;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--accent-hi);
+  color: var(--fg-subtle);
   margin-bottom: var(--space-sm);
-}
-.eyebrow::before {
-  content: '';
-  width: 1.5rem;
-  height: 2px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent));
-}
-.section-header--center .eyebrow::after {
-  content: '';
-  width: 1.5rem;
-  height: 2px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, var(--accent), transparent);
 }
 
 .section-title {
@@ -372,22 +371,28 @@
   .feature-card { min-height: 15rem; }
 }
 
-/* İkon kutusu: soluk wash yerine belirgin mavi + hafif ışıma.
-   Kart içinde gözün ilk takıldığı yer burası olmalı. */
+/* İkon kutusu: gradient ve renkli ışıma KALDIRILDI.
+   Nötr yüzey + hairline kenarlık, ikonun kendisi accent renginde.
+   Renk kütlesi küçüldükçe accent daha değerli görünür. */
 .feature-card__icon {
   display: grid;
   place-items: center;
   width: 2.75rem;
   height: 2.75rem;
   border-radius: var(--r-md);
-  background: linear-gradient(150deg, rgba(46, 155, 255, .22), rgba(10, 95, 191, .12));
-  box-shadow: inset 0 0 0 1px var(--accent-line), 0 6px 18px rgba(46, 155, 255, .14);
-  color: var(--accent-hi);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--accent);
   margin-bottom: var(--space-md);
+  transition: color var(--dur-fast) var(--ease),
+              border-color var(--dur-fast) var(--ease);
 }
-.feature-card__icon .icon { width: 1.3rem; height: 1.3rem; stroke-width: 2; }
+.feature-card__icon .icon { width: 1.3rem; height: 1.3rem; stroke-width: 1.75; }
 
-.feature-card:hover .feature-card__icon { color: #fff; }
+.feature-card:hover .feature-card__icon {
+  color: var(--accent-hi);
+  border-color: var(--accent-line);
+}
 
 .feature-card__title {
   font-size: var(--step-2);
@@ -445,42 +450,88 @@
 }
 
 /* ============================================================
-   VIDEO SLOT — 16:9 tanıtım videosu alanı
-   Sahte oynatma butonu YOK. Gerçek video gelene kadar
-   burada ne olacağı açıkça yazar.
+   REEL — Instagram videosu (facade deseni)
+   Dikey video: 9:16'ya yakın. Instagram embed'i kendi başlık ve
+   alt çubuğunu ekliyor, o yüzden oran 9:16 değil ~1:1.55.
    ============================================================ */
-.video-slot {
-  position: relative;
-  /* Genişlik sınırı: 16:9 bir blok kap genişliğine bırakılırsa
-     geniş monitörde ekranı kaplayan dev bir kutu olur.
-     Video okunması gereken bir şey değil, İZLENEN bir şey —
-     rahat izlenen boyut ~800px. */
-  max-width: 50rem;
-  margin-inline: auto;
-  aspect-ratio: 16 / 9;
+/* İki video yan yana. auto-fit + minmax: dar ekranda kendiliğinden
+   alt alta düşer, medya sorgusu gerekmez.
+   max-width sınırı: dikey videolar geniş ekranda serbest bırakılırsa
+   bölüm gereksiz uzar — kullanıcı "çok uzamasın" dedi. */
+.reel-grid {
   display: grid;
-  place-items: center;
-  align-content: center;
-  gap: var(--space-2xs);
-  text-align: center;
-  padding: var(--space-lg);
-  background: var(--surface);
-  border: 1px dashed var(--border-hi);
-  border-radius: var(--r-lg);
-  color: var(--fg-subtle);
-  overflow: hidden;
-  margin-bottom: var(--space-lg);
+  gap: var(--space-md);
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+  max-width: 42rem;
+  margin-inline: auto;
 }
-.video-slot .icon { width: 2rem; height: 2rem; color: var(--accent); }
-.video-slot > video,
-.video-slot > iframe {
+
+.reel {
+  max-width: 24rem;
+  margin-inline: auto;
+  width: 100%;
+}
+
+.reel__facade,
+.reel__frame {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1.55;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+}
+
+.reel__facade {
+  position: relative;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-lg);
+  text-align: center;
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color var(--dur) var(--ease);
+}
+.reel__facade:hover { border-color: var(--border-hi); }
+
+/* Kapak karesi eklenirse tüm alanı doldurur ve karartılır */
+.reel__facade > img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  border: 0;
   object-fit: cover;
+  filter: brightness(0.55);
 }
+
+.reel__play {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--r-full);
+  background: var(--accent);
+  color: var(--on-accent);
+  transition: transform var(--dur) var(--ease);
+}
+.reel__facade:hover .reel__play { transform: scale(1.06); }
+.reel__play .icon { width: 1.4rem; height: 1.4rem; margin-left: 0.15rem; }
+
+.reel__label {
+  position: relative;
+  margin-top: var(--space-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--fg);
+}
+.reel__hint {
+  position: relative;
+  font-size: var(--step--1);
+  color: var(--fg-subtle);
+}
+
+.reel__frame { background: var(--surface); }
 
 /* ============================================================
    MEDIA SLOT — "buraya görsel gelecek" alanı
@@ -530,6 +581,48 @@
   height: 100%;
   object-fit: cover;
 }
+
+/* ---- Galeri karesi: görsel + ne anlattığını söyleyen alt etiket ----
+   Alt yazı dekoratif değil. Her karenin hangi soruyu cevapladığını
+   söylüyor: etiketsiz galeri "resim albümü", etiketli galeri "kanıt". */
+.media-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.media-item__img {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  object-fit: cover;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+}
+
+.media-item__caption {
+  font-size: var(--step--1);
+  color: var(--fg-subtle);
+}
+
+/* Instagram satırı — bölümün altında sessiz bir not */
+.media-note {
+  margin-top: var(--space-lg);
+  text-align: center;
+  font-size: var(--step--1);
+  color: var(--fg-subtle);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  color: var(--fg-muted);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  text-decoration-color: var(--border-hi);
+}
+.link:hover { color: var(--fg); text-decoration-color: currentColor; }
+.link .icon { width: 1em; height: 1em; }
 
 /* ============================================================
    CTA BAND
@@ -641,7 +734,13 @@
 }
 .fab__btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 .fab__btn .icon { width: 1.35rem; height: 1.35rem; }
-.fab__btn--whatsapp { background: var(--brand-whatsapp); color: #04170c; }
+/* Sayfanın üstünde yüzen bu butonlar da nötrleştirildi:
+   köşede duran parlak yeşil daire dikkati sürekli çalıyordu. */
+.fab__btn--whatsapp {
+  background: var(--surface-2);
+  border: 1px solid var(--border-hi);
+  color: var(--brand-whatsapp);
+}
 .fab__btn--phone { background: var(--accent); color: var(--on-accent); }
 
 @media (min-width: 768px) { .fab { display: flex; } }

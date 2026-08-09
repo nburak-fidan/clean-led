@@ -6,7 +6,9 @@
 
     <title>CLEAN LED — Araç İçi Temizlikte Aydınlık Çözümler</title>
     <meta name="description" content="Araç içi sanayi tipi süpürge makinesi başlığı. LED aydınlatmalı, Türkiye ve dünyada tek patentli kendi üretimimiz. Koltuk altı, bagaj, torpido — karanlık noktada kalan kir yok.">
-    <meta name="theme-color" content="#050810">
+    <!-- Mobil tarayıcı adres çubuğunun rengi. --bg ile aynı kalmalı;
+         farklı olursa telefonda sayfanın üstünde renk çizgisi görünür. -->
+    <meta name="theme-color" content="#0b0d11">
 
     <link rel="canonical" href="https://nburak-fidan.github.io/clean-led/">
 
@@ -23,7 +25,7 @@
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- TODO: logoyu 32x32 ve 180x180 olarak kaydedip gerçek favicon koy -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23050810'/><circle cx='16' cy='14' r='6' fill='none' stroke='%232e9bff' stroke-width='2.5'/><rect x='13' y='21' width='6' height='3' rx='1.5' fill='%232e9bff'/></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230b0d11'/><circle cx='16' cy='14' r='6' fill='none' stroke='%234b90d0' stroke-width='2.5'/><rect x='13' y='21' width='6' height='3' rx='1.5' fill='%234b90d0'/></svg>">
 
     <!-- preconnect: "bu sunucuya bağlanacağım, şimdiden el sıkış" —
          DNS+TLS süresini LCP'den düşürür.
@@ -56,10 +58,9 @@
 
 <!-- ============================================================
      ⚠️  KALAN YER TUTUCULAR (detay: docs/TODO.md)
-     - Hero arka plan fotoğrafı  → .hero__stage üzerindeki --hero-image
-     - Tanıtım videosu           → .video-slot
-     - Galeri görselleri         → .media-slot (4 adet)
+     - Video kapak kareleri      → .reel__facade içindeki <img>
      - og:image                  → 1200x630 paylaşım görseli
+     - Eksik galeri karesi       → ürün süpürge hortumuna takılıyken
      İletişim bilgileri gerçek: 0555 454 55 35 / @cleanled.tr
      ============================================================ -->
 
@@ -202,81 +203,42 @@
 
     <!-- ===================== HERO ===================== -->
     <section class="hero" id="hero">
-        <!-- Aydınlatılacak katman. Gerçek fotoğraf eklemek için:
-             <div class="hero__stage" style="--hero-image:url('./assets/images/hero.webp')"></div>
-             Fotoğraf yokken de logodan alınan ışık çizgileri görünür. -->
         <!-- Tam ekran arka plan.
              <picture> ile telefon kendi dar sürümünü indirir (30KB),
              masaüstü geniş olanı (130KB). "Responsive" sadece düzenin
              kayması değil, hangi byte'ın indiği demek.
              fetchpriority="high": bu görsel LCP elemanı, sıraya girmesin. -->
         <picture class="hero__bg">
-            <source media="(max-width: 767px)" srcset="./assets/images/hero-bg-mobile.webp">
-            <img src="./assets/images/hero-bg.webp" alt=""
+            <source media="(max-width: 767px)" srcset="./assets/images/hero-mobile.webp">
+            <img src="./assets/images/hero.webp" alt=""
                  width="1920" height="1080"
                  fetchpriority="high" decoding="async">
         </picture>
         <div class="hero__scrim"></div>
-        <div class="hero__torch"></div>
-
-        <!-- 3D ürün, sahnenin İÇİNE yerleştirildi (koltuk arası boşluğun
-             üstünde duruyor). JS yüklenmezse bu div boş kalır ve hiçbir
-             şey bozulmaz; hero fotoğraf + metin + butonlarla çalışır.
-             data-orbit: kamera açısı "yatay dikey mesafe".
-             data-orientation: modelin kendi dönüşü — ucu sola baksın diye. -->
-        <div class="hero__model-host"
-             data-hero-model
-             data-src="./assets/model/cleanled.glb"
-             data-orbit="25deg 72deg 105%"
-             data-orientation="0deg 180deg 0deg"
-             aria-hidden="true">
-            <span class="hero__beam"></span>
-        </div>
 
         <div class="container">
             <div class="hero__inner">
-                <span class="badge">
-                    <span class="badge__dot anim-pulse"></span>
-                    Türkiye ve dünyada tek patentli üretim
-                </span>
-
-                <h1 class="hero__title">
-                    Karanlık noktada<br>kalan <em>kir yok</em>
-                </h1>
+                <h1 class="hero__title">Karanlıkta kalan kir yok</h1>
 
                 <p class="hero__lead">
-                    Araç içi sanayi tipi süpürge makinesi başlığı — LED aydınlatmalı.
-                    Koltuk altı, bagaj, torpido: nereye girdiğini gör, tek seferde temizle.
+                    LED aydınlatmalı araç içi süpürge başlığı.
+                    Koltuk altını, bagajı, torpidoyu görerek temizleyin.
                 </p>
 
                 <div class="hero__actions">
-                    <a href="tel:+905554545535" class="btn btn--primary">
+                    <a href="tel:+905554545535" class="btn btn--primary btn--lg">
                         <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
                         0555 454 55 35
                     </a>
-                    <a href="https://wa.me/905554545535" target="_blank" rel="noopener" class="btn btn--whatsapp">
+                    <a href="https://wa.me/905554545535" target="_blank" rel="noopener" class="btn btn--whatsapp btn--lg">
                         <svg class="icon icon--brand" aria-hidden="true"><use href="#i-whatsapp"/></svg>
-                        WhatsApp'tan Yaz
+                        WhatsApp'tan yaz
                     </a>
                 </div>
 
-                <!-- Sadece doğrulanmış üç bilgi.
-                     Eski sitedeki "3x emiş", "12 saat batarya", "IP54"
-                     kaldırıldı: kaynağı yoktu ve ürün kalem pille çalışıyor. -->
-                <dl class="hero__stats">
-                    <div>
-                        <dt class="hero__stat-label">Aydınlatma</dt>
-                        <dd class="hero__stat-value">LED</dd>
-                    </div>
-                    <div>
-                        <dt class="hero__stat-label">Üretim</dt>
-                        <dd class="hero__stat-value">Patentli</dd>
-                    </div>
-                    <div>
-                        <dt class="hero__stat-label">Güç kaynağı</dt>
-                        <dd class="hero__stat-value">Kalem pil</dd>
-                    </div>
-                </dl>
+                <!-- Patent, hero'nun en güçlü argümanı ama başlığın önüne
+                     geçmemeli: rozet olarak üstte değil, künye olarak altta. -->
+                <p class="hero__note">Türkiye ve dünyada tek patentli üretim</p>
             </div>
         </div>
 
@@ -394,7 +356,63 @@
         </div>
     </section>
 
-    <!-- ===================== GALERİ + VİDEO ===================== -->
+    <!-- ===================== VİDEOLAR ===================== -->
+    <section class="section" id="videolar">
+        <div class="container">
+            <header class="section-header section-header--center reveal">
+                <span class="eyebrow">Video</span>
+                <h2 class="section-title">Ürünü çalışırken izleyin</h2>
+            </header>
+
+            <!-- FACADE DESENİ.
+                 Instagram'ın embed.js betiği (~100KB) sayfayı AÇAN herkese
+                 iner ve videoyu izlemeyen ziyaretçinin verisi bile Meta'ya
+                 gider. Burada önce hafif bir kart duruyor; kullanıcı
+                 tıklayınca js/reel.js iframe'i yerleştiriyor.
+
+                 <a> olması bilinçli: JS çalışmazsa link Instagram'da açılır.
+                 <button> olsaydı JS'siz kullanıcı için ölü bir kutu olurdu.
+
+                 Etiketler videonun İÇERİĞİNİ İDDİA ETMİYOR — sadece ne
+                 olduğunu söylüyor. Görmediğim bir videoyu anlatmak,
+                 doğrulanmamış iddia yazmakla aynı şey. -->
+            <div class="reel-grid reveal-stagger reveal">
+
+                <div class="reel">
+                    <a class="reel__facade"
+                       href="https://www.instagram.com/reel/DZ5i00DCWZN/"
+                       target="_blank" rel="noopener"
+                       data-reel="DZ5i00DCWZN">
+                        <!-- Kapak karesi: <img src="./assets/images/video-tanitim.webp"
+                             alt="" width="720" height="1120" loading="lazy"> -->
+                        <span class="reel__play">
+                            <svg class="icon" aria-hidden="true"><use href="#i-play"/></svg>
+                        </span>
+                        <span class="reel__label">Ürün tanıtımı</span>
+                        <span class="reel__hint">Instagram'dan yüklenir</span>
+                    </a>
+                </div>
+
+                <div class="reel">
+                    <a class="reel__facade"
+                       href="https://www.instagram.com/reel/DZShRxyijU4/"
+                       target="_blank" rel="noopener"
+                       data-reel="DZShRxyijU4">
+                        <!-- Kapak karesi: <img src="./assets/images/video-test.webp"
+                             alt="" width="720" height="1120" loading="lazy"> -->
+                        <span class="reel__play">
+                            <svg class="icon" aria-hidden="true"><use href="#i-play"/></svg>
+                        </span>
+                        <span class="reel__label">Dayanıklılık testi</span>
+                        <span class="reel__hint">Instagram'dan yüklenir</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== GALERİ ===================== -->
     <section class="section section--raised" id="gallery">
         <div class="container">
             <header class="section-header section-header--center reveal">
@@ -402,54 +420,57 @@
                 <h2 class="section-title">Ürünü çalışırken görün</h2>
             </header>
 
-            <!-- Tanıtım videosu alanı.
-                 Sahte "oynat" butonu YOK — video gelene kadar ne olacağı yazıyor.
-                 Video geldiğinde bu div'in içine şunu koy:
-                 <video src="./assets/video/tanitim.mp4"
-                        poster="./assets/images/video-poster.webp"
-                        controls preload="none" playsinline></video>
-                 (preload="none": video izlenmezse tek byte inmez.) -->
-            <div class="video-slot reveal">
-                <svg class="icon" aria-hidden="true"><use href="#i-play"/></svg>
-                <span class="media-slot__label">Tanıtım videosu</span>
-                <span class="media-slot__hint">16:9 · mp4 (H.264) · 1080p · 10 MB altı</span>
-            </div>
+            <!-- GALERİ = KANIT, süs değil.
+                 Dördü de gerçek iş kareleri. Etiketler karede GERÇEKTEN
+                 ne olduğunu söyler — "uyumluluk" gibi elimizde karşılığı
+                 olmayan bir etiket kullanılmadı.
+                 Birlikte anlattıkları: ürün aracın her köşesinde çalışıyor. -->
+            <figure class="media-grid reveal-stagger reveal">
 
-            <!-- Instagram gönderileri.
-                 Her kutuyu şununla değiştir:
-                 <a class="media-slot" href="GÖNDERİ_LİNKİ" target="_blank" rel="noopener">
-                   <img src="./assets/images/ig-1.webp" alt="Ürün koltuk altını temizlerken"
-                        width="600" height="600" loading="lazy">
-                 </a> -->
-            <div class="media-grid reveal-stagger reveal">
-                <div class="media-slot">
-                    <svg class="icon" aria-hidden="true"><use href="#i-image"/></svg>
-                    <span class="media-slot__label">Instagram görseli 1</span>
-                    <span class="media-slot__hint">kare · 600×600 · webp</span>
+                <div class="media-item">
+                    <img class="media-item__img"
+                         src="./assets/images/galeri-led.webp"
+                         alt="CLEAN LED başlığının ucundaki LED yakın çekimde yanarken"
+                         width="491" height="491" loading="lazy" decoding="async">
+                    <figcaption class="media-item__caption">LED yanarken</figcaption>
                 </div>
-                <div class="media-slot">
-                    <svg class="icon" aria-hidden="true"><use href="#i-image"/></svg>
-                    <span class="media-slot__label">Instagram görseli 2</span>
-                    <span class="media-slot__hint">kare · 600×600 · webp</span>
-                </div>
-                <div class="media-slot">
-                    <svg class="icon" aria-hidden="true"><use href="#i-image"/></svg>
-                    <span class="media-slot__label">Instagram görseli 3</span>
-                    <span class="media-slot__hint">kare · 600×600 · webp</span>
-                </div>
-                <div class="media-slot">
-                    <svg class="icon" aria-hidden="true"><use href="#i-image"/></svg>
-                    <span class="media-slot__label">Instagram görseli 4</span>
-                    <span class="media-slot__hint">kare · 600×600 · webp</span>
-                </div>
-            </div>
 
-            <div class="media-actions reveal">
-                <a href="https://www.instagram.com/cleanled.tr/" target="_blank" rel="noopener" class="btn btn--secondary">
+                <div class="media-item">
+                    <img class="media-item__img"
+                         src="./assets/images/galeri-is-basinda.webp"
+                         alt="CLEAN LED başlığı karanlık araç içinde çalışırken; LED ışığı halıdaki kırıntıları aydınlatıyor"
+                         width="800" height="800" loading="lazy" decoding="async">
+                    <figcaption class="media-item__caption">Koltuk arası</figcaption>
+                </div>
+
+                <div class="media-item">
+                    <img class="media-item__img"
+                         src="./assets/images/galeri-bagaj.webp"
+                         alt="CLEAN LED başlığı bagaj zeminini temizlerken; LED ışığı tozu görünür kılıyor"
+                         width="497" height="497" loading="lazy" decoding="async">
+                    <figcaption class="media-item__caption">Bagaj</figcaption>
+                </div>
+
+                <div class="media-item">
+                    <img class="media-item__img"
+                         src="./assets/images/galeri-paspas.webp"
+                         alt="CLEAN LED başlığı ayak altındaki paspas bölgesini temizlerken"
+                         width="490" height="490" loading="lazy" decoding="async">
+                    <figcaption class="media-item__caption">Ayak altı</figcaption>
+                </div>
+
+            </figure>
+
+            <!-- Instagram artık bölümün omurgası değil, altta tek satır.
+                 Sosyal kanıt olarak kalır ama ürünü görmeye gelen
+                 ziyaretçiyi sayfadan koparmaz. -->
+            <p class="media-note reveal">
+                Daha fazla iş ve video:
+                <a href="https://www.instagram.com/cleanled.tr/" target="_blank" rel="noopener" class="link">
                     <svg class="icon icon--brand" aria-hidden="true"><use href="#i-instagram"/></svg>
-                    @cleanled.tr — hepsini gör
+                    @cleanled.tr
                 </a>
-            </div>
+            </p>
         </div>
     </section>
 
@@ -461,7 +482,6 @@
                     <h2 class="cta-band__title" id="cta-title">Fiyat ve sipariş için arayın</h2>
                     <p class="cta-band__text">
                         Adet, fiyat ve gönderim detaylarını telefonda netleştiriyoruz.
-                        Form doldurmanıza gerek yok.
                     </p>
                 </div>
                 <div class="cta-band__actions">

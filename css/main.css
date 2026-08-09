@@ -8,27 +8,20 @@
    ============================================================ */
 
 /* ============================================================
-   HERO — "El feneri" etkileşimi
+   HERO — tam ekran gerçek fotoğraf
 
-   FİKİR: Ürünün tek satırlık vaadi "karanlıkta göremediğini görürsün".
-   Jenerik bir hero (rozet + başlık + iki buton) bunu ANLATIR.
-   Bunun yerine kullanıcıya YAŞATIYORUZ: sayfa karanlık başlıyor,
-   imleç bir LED huzmesi gibi arkadaki dokuyu aydınlatıyor.
+   KARAR GEÇMİŞİ (aynı hatayı tekrar etmemek için):
+   Önce CSS ile çizilmiş "el feneri" etkileşimi, sonra 3D model
+   denendi. İkisi de kaldırıldı.
+   - CSS ızgara/huzme desenleri "AI şablonu" gibi duruyordu.
+   - 3D model fotoğrafa oturmuyordu: kamera açısı, ışık yönü ve
+     temas gölgesi eşleşmediği için havada duruyordu. Bir 3D nesneyi
+     fotoğrafa inandırıcı oturtmak VFX işidir, CSS işi değil.
 
-   Bu, "yapay zeka yapmış gibi durmasın" isteğinin teknik karşılığı:
-   özgünlük süslemeden değil, ürünün kendi mantığından gelir.
-
-   BOZULMA DURUMLARI (önce bunlar düşünüldü):
-   - JS çalışmazsa       → huzme varsayılan konumda sabit kalır, sayfa okunur
-   - Dokunmatik cihazda  → imleç yok, huzme kendi kendine süzülür
-   - reduced-motion açık → süzülme durur, sabit aydınlık
+   Şimdiki çözüm: ürünün gerçekten çalışırken çekilmiş fotoğrafı.
+   Eşlenecek hiçbir şey yok — ışık, gölge, perspektif, ürün: hepsi
+   aynı karede ve hepsi gerçek.
    ============================================================ */
-
-/* @property olmadan CSS değişkenleri animasyonlanamaz (birden zıplar).
-   Tipini bildirince tarayıcı ara değerleri hesaplayabilir.
-   Desteklemeyen tarayıcıda animasyon olmaz, düzen bozulmaz. */
-@property --torch-x { syntax: '<percentage>'; inherits: true; initial-value: 68%; }
-@property --torch-y { syntax: '<percentage>'; inherits: true; initial-value: 42%; }
 
 .hero {
   position: relative;
@@ -45,19 +38,6 @@
 /* Mobilde ekranın altını sabit CTA barı kaplıyor.
    Hero yüksekliğinden düşülmezse son satır (istatistikler)
    barın ARKASINDA kalıyor — testte 703px vs 679px olarak ölçüldü. */
-/* Dar ekranda ürün metnin ALTINDA, kadranın alt bölgesinde kalır.
-   Yan yana yerleşim dikey ekranda ikisini de küçültür. */
-@media (max-width: 899px) {
-  .hero__model-host {
-    right: -8%;
-    bottom: 0;
-    width: 92%;
-    height: 44%;
-  }
-  .hero__model-host.is-ready { opacity: .9; }
-  .hero__beam { width: 20rem; height: 20rem; }
-}
-
 @media (max-width: 767px) {
   .hero {
     min-height: calc(100svh - var(--nav-h) - var(--topbar-h) - var(--mobile-cta-h));
@@ -67,13 +47,9 @@
        barın arkasına giriyordu. */
     padding-block: var(--space-lg);
   }
-  .hero__stats {
-    margin-top: var(--space-md);
-    padding-top: var(--space-sm);
-    gap: var(--space-sm);
-  }
   .hero__actions { margin-top: var(--space-md); }
   .hero__lead { margin-top: var(--space-sm); }
+  .hero__note { margin-top: var(--space-md); padding-top: var(--space-sm); }
 }
 
 /* ---- Katman 1: tam ekran fotoğraf ----
@@ -107,57 +83,21 @@
   z-index: -2;
   pointer-events: none;
   background:
+    /* Perde HAFİFLETİLDİ. Yeni fotoğrafın sol üçte biri zaten
+       çok karanlık (ölçüldü: ortalama 9/255, en parlak 38/255),
+       ağır perde gereksizce fotoğrafı boğuyordu.
+       Perde gücü tahminle değil, fotoğrafın ölçülen parlaklığına
+       göre belirlenir. */
     linear-gradient(100deg,
-      var(--bg) 0%,
-      color-mix(in srgb, var(--bg) 93%, transparent) 34%,
-      color-mix(in srgb, var(--bg) 66%, transparent) 62%,
-      color-mix(in srgb, var(--bg) 18%, transparent) 100%),
+      color-mix(in srgb, var(--bg) 82%, transparent) 0%,
+      color-mix(in srgb, var(--bg) 62%, transparent) 38%,
+      color-mix(in srgb, var(--bg) 24%, transparent) 68%,
+      transparent 100%),
     /* alt vinyet: mobil CTA barına doğru yumuşak geçiş */
     linear-gradient(to top,
-      color-mix(in srgb, var(--bg) 80%, transparent) 0%,
-      transparent 28%);
+      color-mix(in srgb, var(--bg) 75%, transparent) 0%,
+      transparent 26%);
 }
-
-/* ---- Katman 2: huzme ----
-   Işık dairesinin DIŞINI karartır, içini açar.
-   Ayrıca merkeze hafif mavi ışıma koyar → "LED yanıyor" hissi. */
-.hero__torch {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(circle 230px at var(--torch-x) var(--torch-y),
-      rgba(46, 155, 255, .10), transparent 74%),
-    radial-gradient(circle 420px at var(--torch-x) var(--torch-y),
-      transparent 0%,
-      color-mix(in srgb, var(--bg) 45%, transparent) 52%,
-      color-mix(in srgb, var(--bg) 88%, transparent) 100%);
-  /* İmleç hareketini yumuşat: ışık parmağın peşinden "sürünsün" */
-  transition: background var(--dur-fast) linear;
-}
-
-/* Huzme VARSAYILAN olarak kendi kendine gezinir — her cihazda.
-   Gerçek bir imleç hareketi algılanınca JS `.has-pointer` ekler
-   ve süzülme durur, takip devreye girer.
-
-   Neden `@media (hover: none)` kullanılmadı:
-   O sorgu bazı ortamlarda (bazı tarayıcı/işletim sistemi
-   kombinasyonları, uzak masaüstü, gömülü görünümler) yanlış cevap
-   veriyor — bu projede test sırasında masaüstünde `none` döndüğü
-   görüldü. Yetenek tespiti tahmine değil, GERÇEKLEŞEN OLAYA
-   dayanmalı: fare hareket ettiyse fare vardır. */
-.hero { animation: torch-drift 11s var(--ease) infinite alternate; }
-.hero.has-pointer { animation: none; }
-
-@keyframes torch-drift {
-  from { --torch-x: 26%; --torch-y: 60%; }
-  to   { --torch-x: 76%; --torch-y: 34%; }
-}
-
-/* NOT: Eskiden burada ikinci bir okunabilirlik perdesi vardı.
-   Artık .hero__scrim o işi yapıyor — iki ayrı perde üst üste
-   binince fotoğraf gereğinden fazla kararıyordu. */
 
 .hero__inner {
   position: relative;
@@ -165,115 +105,49 @@
   max-width: 40rem;
 }
 
-/* ============================================================
-   HERO 3D ÜRÜN
-
-   Yerleşim kararı: ürün mutlak konumlandırılıyor, akışta değil.
-   Sebep — metin ve ürün BİRBİRİNİ İTMEMELİ. Grid'e koysaydık
-   dar ekranda ürün metni aşağı iter ve butonlar katlanın altına
-   düşerdi. Dönüşüm butonlarının görünürlüğü, 3D'den önemli.
-   ============================================================ */
-/* Ürün sahnenin İÇİNDE duruyor: koltuk arası boşluğun üstünde,
-   kadranın sağ-alt bölgesinde. Ortalanmış bir "ürün kutusu" değil —
-   fotoğrafla aynı mekânda görünmesi gereken bir nesne. */
-.hero__model-host {
-  position: absolute;
-  z-index: -1;               /* metin her zaman üstte kalır */
-  pointer-events: none;      /* alt katman tıklamayı yutmasın */
-  opacity: 0;
-  transition: opacity 900ms var(--ease);
-
-  right: -2%;
-  bottom: 4%;
-  width: min(62%, 46rem);
-  height: 62%;
-
-  /* "Kir çekme" hareketi — süpürgenin aşağı yukarı gidişi.
-     CSS'te, JS'te değil: transform animasyonu compositor'da koşar,
-     main thread'e hiç dokunmaz. Aynı şeyi rAF ile yapsaydık her
-     karede JS çalışırdı ve INP'yi riske atardı. */
-  animation: nozzle-work 3.4s var(--ease) infinite alternate;
+/* Fotoğrafa hayat veren tek hareket: çok yavaş yakınlaşma.
+   "Ken Burns" — sabit bir fotoğraf ölü durur, 20 saniyede %6
+   yakınlaşan bir fotoğraf fark edilmeden canlı hissettirir.
+   transform kullanılıyor (width/height değil): compositor'da koşar,
+   her karede layout hesaplanmaz. */
+.hero__bg img {
+  animation: hero-drift 24s var(--ease) infinite alternate;
 }
 
-/* Hareket KÜÇÜK ve YAVAŞ.
-   Büyük bir salınım "yüzen obje" gibi durur; süpürge ise kısa,
-   ölçülü hamleler yapar. 14px yol + 1.5° eğim o hissi veriyor. */
-@keyframes nozzle-work {
-  from { transform: translateY(-7px) rotate(-0.8deg); }
-  to   { transform: translateY(7px)  rotate(0.8deg); }
+@keyframes hero-drift {
+  from { transform: scale(1.0); }
+  to   { transform: scale(1.06); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero__model-host { animation: none; }
+  .hero__bg img { animation: none; }
 }
 
-/* Model yüklenip ilk kare çizilince belirir.
-   Yarım yüklenmiş model hiç gösterilmez. */
-.hero__model-host.is-ready { opacity: 1; }
-
-.hero__model {
-  width: 100%;
-  height: 100%;
-  /* model-viewer kendi arka planını basar; şeffaf olmalı ki
-     arkadaki karanlık sahne ve huzme görünsün. */
-  background-color: transparent;
-  --poster-color: transparent;
-  /* Sürükleyip döndürmek isteyene izin ver, ama sayfa kaydırmayı çalma */
-  pointer-events: auto;
-  cursor: grab;
-}
-.hero__model:active { cursor: grabbing; }
-
-/* ---- Ürünün etrafındaki LED ışıması ----
-   YÖNLÜ HUZME DEĞİL, HALE.
-   Sebep: ürün artık tam tur dönüyor. LED'in bulunduğu uç her saniye
-   ekranın başka yerine gidiyor; sabit konumlu yönlü bir huzme onunla
-   sürekli kopar. Ortalanmış yumuşak bir hale her açıda doğru durur
-   ve "cihaz ışık veriyor" hissini bozmadan taşır.
-
-   Konum ayarı: --beam-x / --beam-y (HTML'e dokunmadan). */
-.hero__beam {
-  position: absolute;
-  left: var(--beam-x, 50%);
-  top: var(--beam-y, 50%);
-  width: 34rem;
-  height: 34rem;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 50% 50%,
-      rgba(124, 196, 255, .18) 0%,
-      rgba(46, 155, 255, .09) 30%,
-      transparent 65%);
-  filter: blur(10px);
-  animation: beam-breathe 6s var(--ease) infinite alternate;
-}
-
-/* Işık "nefes alır" — sabit parlaklık ölü görünür, LED ise
-   canlı bir cihazdır. Değişim çok küçük tutuldu (0.85 → 1.05);
-   fazlası yanıp sönen tabelaya benzer. */
-@keyframes beam-breathe {
-  from { opacity: .82; transform: translate(-50%, -50%) scale(0.97); }
-  to   { opacity: 1;   transform: translate(-50%, -50%) scale(1.04); }
-}
-
+/* Başlık TEK RENK — vurgulu mavi kelime kaldırıldı.
+   Renkli kelime hem dikkati böler hem "AI şablonu" sinyalidir.
+   Kurumsal başlıklar rengi değil, ÖLÇÜYÜ kullanır. */
 .hero__title {
-  margin-top: var(--space-md);
   font-size: var(--step-5);
   font-weight: var(--fw-bold);
-  line-height: 1.06;
-  letter-spacing: -0.03em;
-  color: var(--chrome);
+  line-height: 1.08;
+  /* Büyük puntoda harf araları doğal olarak açılır; negatif tracking
+     onları toparlar. Kurumsal kimliklerin ortak özelliği budur. */
+  letter-spacing: -0.028em;
+  color: var(--fg);
 }
-/* Vurgulu kelime: mavi + arkasında zayıf bir ışıma.
-   Gradient METİN kullanılmadı — okunabilirliği düşürüyor ve
-   "AI sitesi" görüntüsünün en tipik işareti o. */
-/* Vurgu artık ışıldamıyor.
-   Metnin arkasına glow koymak ekranda "neon tabela" etkisi yapıyor
-   ve yapaylığın bir başka kaynağı. Rengin kendisi zaten yeterli. */
-.hero__title em {
-  font-style: normal;
-  color: var(--accent-hi);
+
+/* Patent künyesi: rozet değil, ince bir çizginin altında sessiz not.
+   Rozet (yuvarlak, renkli, yanıp sönen nokta) "kampanya" hissi
+   veriyordu; patent ise ciddi bir iddia, sessiz sunulmalı. */
+.hero__note {
+  margin-top: var(--space-lg);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--border);
+  max-width: 24rem;
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-subtle);
 }
 
 .hero__lead {
@@ -293,32 +167,6 @@
 
 @media (max-width: 479px) {
   .hero__actions { flex-direction: column; align-items: stretch; }
-}
-
-/* ---- Hero istatistikleri: sadece doğrulanmış bilgi ---- */
-.hero__stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(8.5rem, 100%), 1fr));
-  gap: var(--space-md);
-  margin-top: var(--space-xl);
-  padding-top: var(--space-lg);
-  border-top: 1px solid var(--border);
-}
-
-.hero__stat-value {
-  font-size: var(--step-2);
-  font-weight: var(--fw-bold);
-  color: var(--chrome);
-  letter-spacing: -0.01em;
-  font-variant-numeric: tabular-nums;
-}
-.hero__stat-label {
-  margin-bottom: 0.15rem;
-  font-size: var(--step--1);
-  font-weight: var(--fw-medium);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
 }
 
 /* ---- Aşağı kaydır ----
@@ -370,12 +218,6 @@
 .product__lead { max-width: 44rem; }
 
 .product__points { margin-top: var(--space-xl); }
-
-.media-actions {
-  display: flex;
-  justify-content: center;
-  margin-top: var(--space-lg);
-}
 
 /* ============================================================
    YARDIMCILAR
